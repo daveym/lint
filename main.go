@@ -27,10 +27,12 @@ func main() {
 	consumerKey := flag.String("auth", "No key set", "Please enter your pocket consumer_key.")
 	flag.Parse()
 
+	// TEST
+	*consumerKey = ""
+
 	if *consumerKey != "" {
 		fmt.Println(*consumerKey)
 		requestToken := Pocket.Authenticate(*consumerKey)
-
 		fmt.Println("go to https://getpocket.com/auth/authorize?request_token=" + requestToken)
 		fmt.Println("type ENTER when the application is authorized")
 	}
