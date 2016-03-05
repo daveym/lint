@@ -18,17 +18,19 @@ package main
 import (
 	"flag"
 	"fmt"
+
+	"github.com/daveym/pocket/pocket"
 )
 
 func main() {
 
-	consumerKey := flag.String("auth", "No key set", "")
+	consumerKey := flag.String("auth", "No key set", "Please enter your pocket consumer_key.")
 	flag.Parse()
 
 	fmt.Println(*consumerKey)
-	request_token := getRequestToken(*consumerKey)
+	requestToken := Pocket.Authenticate(consumerKey)
 
-	fmt.Println("go to https://getpocket.com/auth/authorize?request_token=" + request_token)
+	fmt.Println("go to https://getpocket.com/auth/authorize?request_token=" + requestToken)
 	fmt.Println("type ENTER when the application is authorized")
 
 }
