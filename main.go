@@ -1,11 +1,11 @@
 /*
 Usage:
-    pocket auth
-    pocket count
-    pocket list
-    pocket archive [comma seoperated ids]
-    pocket delete  [comma seoperated ids]
-    pocket --version
+    lintfree auth
+    lintfree count
+    lintfree list
+    lintfree archive [comma seoperated ids]
+    lintfree delete  [comma seoperated ids]
+    lintfree --version
 
 Commands:
     auth		      Get an access token for batch work.
@@ -19,7 +19,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/daveym/pocket/pocket"
+	"github.com/daveym/lintfree/lintfree"
 )
 
 func main() {
