@@ -15,7 +15,7 @@ const (
 // A Request Token is returned that should be used for all subsequent requests to Pocket.
 func Authenticate(consumerKey string) string {
 
-	var jsonStr = []byte(`{"consumer_key":"YOUR KEY HERE","redirect_uri":"pocketapp1234:authorizationFinished"}`)
+	var jsonStr = []byte("{consumer_key:" + consumerKey + "redirect_uri:pocketapp1234:authorizationFinished}")
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("charset", "UTF8")
