@@ -8,9 +8,10 @@ import (
 	"net/http"
 )
 
+// Initial Auth response from Pocket
 type authResponse struct {
-	code  string
-	state string
+	Code  string
+	State string
 }
 
 const (
@@ -48,7 +49,7 @@ func Authenticate(consumerKey string) string {
 		fmt.Printf("%T\n%s\n%#v\n", err, err, err)
 	}
 
-	return string(s.code)
+	return string(s.Code)
 
 }
 
