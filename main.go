@@ -1,11 +1,11 @@
 /*
 Usage:
-    lintfree auth
-    lintfree count
-    lintfree list
-    lintfree archive [comma seoperated ids]
-    lintfree delete  [comma seoperated ids]
-    lintfree --version
+    lint auth
+    lint count
+    lint list
+    lint archive [comma seoperated ids]
+    lint delete  [comma seoperated ids]
+    lint --version
 
 Commands:
     auth		      Get an access token for batch work.
@@ -19,7 +19,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/daveym/lintfree/lintfree"
+	"github.com/daveym/lint/lint"
 )
 
 func main() {
