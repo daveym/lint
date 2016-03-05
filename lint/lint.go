@@ -38,20 +38,17 @@ func Authenticate(consumerKey string) string {
 	}
 	defer resp.Body.Close()
 
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Println("response Body:", string(body))
 
-	decoder := json.NewDecoder(resp.Body)
-	var jsonResp authResponse
-	err = decoder.Decode(&jsonResp)
+	var s = new(authResponse)
+	err = json.Unmarshal([]byte(body), &s)
 
 	if err != nil {
 		fmt.Printf("%T\n%s\n%#v\n", err, err, err)
 	}
 
-	return string(jsonResp.code)
+	return string(s.code)
 
 }
 

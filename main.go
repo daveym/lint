@@ -28,7 +28,7 @@ func main() {
 	flag.Parse()
 
 	// TEST
-	*consumerKey = ""
+	*consumerKey = "52204-09dc66720db59e4959bf47f5"
 
 	if *consumerKey != "" {
 		fmt.Println(*consumerKey)
