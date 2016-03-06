@@ -8,32 +8,6 @@ import (
 	"net/http"
 )
 
-// Initial Authintication response from Pocket
-type authenticationResponse struct {
-	Code  string
-	State string
-}
-
-// Initial Authorisation response from Pocket
-type authorisationResponse struct {
-	AccessToken string
-	Username    string
-}
-
-const (
-	// AuthenticationURL - API address to Authenticate Pocket Consumer Key
-	AuthenticationURL string = "https://getpocket.com/v3/oauth/request"
-
-	// AuthorisationURL - API address to Authorise and recience a Request Key
-	AuthorisationURL string = "https://getpocket.com/v3/oauth/authorize"
-
-	//UserAuthorisationURL - Address that a user must enter into their browser to Authorise Lint to access Pocket
-	UserAuthorisationURL string = "https://getpocket.com/auth/authorize?"
-
-	//RedirectURI - Link back location after Authorisation has been granted
-	RedirectURI string = "https://github.com/daveym/lint/blob/master/AUTHCOMPLETE.md"
-)
-
 // Authenticate takes the the users consumer key and performs a one time authentication with the Pocket API to request access.
 // A Request Token is returned that should be used for all subsequent requests to Pocket.
 func Authenticate(consumerKey string) string {
