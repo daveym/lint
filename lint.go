@@ -3,8 +3,8 @@ Usage:
     lint auth
     lint count
     lint list
-    lint archive [comma seoperated ids]
-    lint delete  [comma seoperated ids]
+    lint archive [comma separated ids]
+    lint delete  [comma separated ids]
     lint --version
 
 Commands:
@@ -16,10 +16,12 @@ Commands:
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
+	"os"
 
-	"github.com/daveym/lint/lint"
+	"github.com/daveym/lint/lintapi"
 )
 
 func main() {
@@ -27,13 +29,17 @@ func main() {
 	consumerKey := flag.String("auth", "No key set", "Please enter your pocket consumer_key.")
 	flag.Parse()
 
-	// TEST
-	*consumerKey = "52204-09dc66720db59e4959bf47f5"
+	// TEST KEY
+	*consumerKey = ""
 
 	if *consumerKey != "" {
 		fmt.Println(*consumerKey)
-		requestToken := Pocket.Authenticate(*consumerKey)
+		requestToken := Lint.Authenticate(*consumerKey)
 		fmt.Println("go to https://getpocket.com/auth/authorize?request_token=" + requestToken)
 		fmt.Println("type ENTER when the application is authorized")
+		bufio.NewReader(os.Stdin).ReadBytes('\n')
+
+		accessToken, username := Lint.Authorise(*consumerKey, requestToken)
+		fmt.Println(accessToken, username)
 	}
 }
