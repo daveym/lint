@@ -21,20 +21,28 @@ type authorisationResponse struct {
 }
 
 const (
-	authenticationURL string = "https://getpocket.com/v3/oauth/request"
-	authorisationURL  string = "https://getpocket.com/v3/oauth/authorize"
-	redirectURI       string = "https://github.com/daveym/pocket/blob/master/AUTHCOMPLETE.md"
+	// AuthenticationURL - API address to Authenticate Pocket Consumer Key
+	AuthenticationURL string = "https://getpocket.com/v3/oauth/request"
+
+	// AuthorisationURL - API address to Authorise and recience a Request Key
+	AuthorisationURL string = "https://getpocket.com/v3/oauth/authorize"
+
+	//UserAuthorisationURL - Address that a user must enter into their browser to Authorise Lint to access Pocket
+	UserAuthorisationURL string = "https://getpocket.com/auth/authorize?"
+
+	//RedirectURI - Link back location after Authorisation has been granted
+	RedirectURI string = "https://github.com/daveym/lint/blob/master/AUTHCOMPLETE.md"
 )
 
 // Authenticate takes the the users consumer key and performs a one time authentication with the Pocket API to request access.
 // A Request Token is returned that should be used for all subsequent requests to Pocket.
 func Authenticate(consumerKey string) string {
 
-	request := map[string]string{"consumer_key": consumerKey, "redirect_uri": redirectURI}
+	request := map[string]string{"consumer_key": consumerKey, "redirect_uri": RedirectURI}
 	jsonStr, _ := json.Marshal(request)
 
 	fmt.Println(string(jsonStr))
-	req, err := http.NewRequest("POST", authenticationURL, bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("POST", AuthenticationURL, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("charset", "UTF8")
 	req.Header.Set("X-Accept", "application/json")
@@ -67,7 +75,7 @@ func Authorise(consumerKey string, code string) (string, string) {
 	jsonStr, _ := json.Marshal(request)
 
 	fmt.Println(string(jsonStr))
-	req, err := http.NewRequest("POST", authorisationURL, bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("POST", AuthorisationURL, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("charset", "UTF8")
 	req.Header.Set("X-Accept", "application/json")
