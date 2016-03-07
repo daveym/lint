@@ -12,6 +12,8 @@ const (
 	UserAuthorisationURL string = "https://getpocket.com/auth/authorize?"
 	//RedirectURI - Link back location after Authorisation has been granted
 	RedirectURI string = "https://github.com/daveym/lint/blob/master/AUTHCOMPLETE.md"
+	// RetrieveURL - API Address to query Pocket Items
+	RetrieveURL = "https://getpocket.com/v3/get"
 )
 
 const (
@@ -43,6 +45,12 @@ type ItemStatus int
 // ItemMediaAttachment - Is Media attached to the Pocket Item. Defined by ItemMedia constants
 type ItemMediaAttachment int
 
+// Configuration - holds Lint configuration in JSON format
+type Configuration struct {
+	// ConsumerKey - Private Key to authenticate against Pocket API
+	ConsumerKey string
+}
+
 // Initial Authentication response from Pocket
 type authenticationResponse struct {
 	Code  string
@@ -55,7 +63,8 @@ type authorisationResponse struct {
 	Username    string
 }
 
-type getListRequest struct {
+// ItemRequest - Query pocket for a list of items
+type ItemRequest struct {
 	State       string
 	Favorite    int
 	Tag         string
@@ -69,7 +78,8 @@ type getListRequest struct {
 	Offset      int
 }
 
-type listItem struct {
+// ItemResponse - An individual Pocket entry
+type ItemResponse struct {
 	ItemID        int        `json:"item_id,string"`
 	ResolvedID    int        `json:"resolved_id,string"`
 	GivenURL      string     `json:"given_url"`

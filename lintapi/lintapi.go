@@ -29,7 +29,6 @@ func Authenticate(consumerKey string) string {
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("AuthN response Body:", string(body))
 
 	var r = new(authenticationResponse)
 	err = json.Unmarshal([]byte(body), &r)
@@ -62,8 +61,6 @@ func Authorise(consumerKey string, code string) (string, string) {
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("AuthR response Body:", string(body))
-
 	var r = new(authorisationResponse)
 	err = json.Unmarshal([]byte(body), &r)
 
@@ -72,5 +69,37 @@ func Authorise(consumerKey string, code string) (string, string) {
 	}
 
 	return r.AccessToken, r.Username
+}
+
+// GetItems -  Pull back items from Pocket
+func GetItems(consumerKey string, accessToken string, itemRequest ItemRequest) *ItemResponse {
+
+	request := map[string]string{"consumer_key": consumerKey, "access_token": accessToken}
+	jsonStr, _ := json.Marshal(request)
+
+	fmt.Println(string(jsonStr))
+	req, err := http.NewRequest("GET", RetrieveURL, bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("charset", "UTF8")
+	req.Header.Set("X-Accept", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("GetItems response Body:", string(body))
+
+	var r = new(ItemResponse)
+	err = json.Unmarshal([]byte(body), &r)
+
+	if err != nil {
+		fmt.Printf("%T\n%s\n%#v\n", err, err, err)
+	}
+
+	return r
 
 }

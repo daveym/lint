@@ -17,7 +17,6 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"os"
 
@@ -26,21 +25,29 @@ import (
 
 func main() {
 
-	consumerKey := flag.String("auth", "No key set", "Please enter your pocket consumer_key.")
-	flag.Parse()
+	consumerKey := "52204-09dc66720db59e4959bf47f5"
 
-	// TEST KEY
-	*consumerKey = ""
-
-	if *consumerKey != "" {
-		fmt.Println(*consumerKey)
-		requestToken := Lint.Authenticate(*consumerKey)
-		fmt.Println("go to https://getpocket.com/auth/authorize?request_token=" + requestToken)
+	if consumerKey != "" {
+		fmt.Println(consumerKey)
+		requestToken := Lint.Authenticate(consumerKey)
 		fmt.Println("Please go to:" + Lint.UserAuthorisationURL + "request_token=" + requestToken + "&redirect_uri=" + Lint.RedirectURI)
-		fmt.Println("type ENTER when the application is authorized")
+		fmt.Println("")
+		fmt.Println("Press ENTER when you have authorised the application to use Lint.")
 		bufio.NewReader(os.Stdin).ReadBytes('\n')
 
-		accessToken, username := Lint.Authorise(*consumerKey, requestToken)
-		fmt.Println(accessToken, username)
+		accessToken, username := Lint.Authorise(consumerKey, requestToken)
+		fmt.Println("ACCESS TOKEN: " + accessToken + " USERNAME:" + username)
+
+		// Test Retrieve
+		var ItemRequest Lint.ItemRequest
+		ItemRequest.Count = 10
+
+		items := Lint.GetItems(consumerKey, accessToken, ItemRequest)
+		fmt.Println(items)
+
+	} else {
+		fmt.Println(consumerKey)
+		fmt.Println("lint.json missing. Please add this file, with the following entries:")
+		fmt.Println("{'consumer_key:', 'Your Consumer Key'}")
 	}
 }
