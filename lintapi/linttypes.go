@@ -51,16 +51,16 @@ type Configuration struct {
 	ConsumerKey string
 }
 
-// Initial Authentication response from Pocket
-type authenticationResponse struct {
+// AuthenticationResponse response from Pocket
+type AuthenticationResponse struct {
 	Code  string
 	State string
 }
 
-// Initial Authorisation response from Pocket
-type authorisationResponse struct {
-	AccessToken string
-	Username    string
+// AuthorisationResponse response from Pocket
+type AuthorisationResponse struct {
+	AccessToken string `json:"access_token,string"`
+	Username    string `json:"username,string"`
 }
 
 // ItemRequest - Query pocket for a list of items

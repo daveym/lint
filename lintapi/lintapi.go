@@ -30,7 +30,8 @@ func Authenticate(consumerKey string) string {
 
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	var r = new(authenticationResponse)
+	fmt.Println("BODY:" + string(body))
+	var r = new(AuthenticationResponse)
 	err = json.Unmarshal([]byte(body), &r)
 
 	if err != nil {
@@ -61,7 +62,9 @@ func Authorise(consumerKey string, code string) (string, string) {
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	var r = new(authorisationResponse)
+	fmt.Println("BODY:" + string(body))
+
+	var r = new(AuthorisationResponse)
 	err = json.Unmarshal([]byte(body), &r)
 
 	if err != nil {

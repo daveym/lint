@@ -25,7 +25,7 @@ import (
 
 func main() {
 
-	consumerKey := "52204-09dc66720db59e4959bf47f5"
+	consumerKey := ""
 
 	if consumerKey != "" {
 		fmt.Println(consumerKey)
@@ -39,11 +39,11 @@ func main() {
 		fmt.Println("ACCESS TOKEN: " + accessToken + " USERNAME:" + username)
 
 		// Test Retrieve
-		var ItemRequest Lint.ItemRequest
-		ItemRequest.Count = 10
+		//var ItemRequest Lint.ItemRequest
+		//ItemRequest.Count = 10
 
-		items := Lint.GetItems(consumerKey, accessToken, ItemRequest)
-		fmt.Println(items)
+		//items := Lint.GetItems(consumerKey, accessToken, ItemRequest)
+		//fmt.Println(items)
 
 	} else {
 		fmt.Println(consumerKey)
