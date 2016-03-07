@@ -75,10 +75,9 @@ func Authorise(consumerKey string, code string) (string, string) {
 }
 
 // GetItems -  Pull back items from Pocket
-func GetItems(consumerKey string, accessToken string, itemRequest ItemRequest) ItemResponse {
+func GetItems(itemRequest ItemRequest) ItemResponse {
 
-	request := map[string]string{"consumer_key": consumerKey, "access_token": accessToken}
-	jsonStr, _ := json.Marshal(request)
+	jsonStr, _ := json.Marshal(itemRequest)
 
 	fmt.Println(string(jsonStr))
 	req, err := http.NewRequest("GET", RetrieveURL, bytes.NewBuffer(jsonStr))

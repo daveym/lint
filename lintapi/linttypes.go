@@ -26,6 +26,15 @@ const (
 )
 
 const (
+	// ItemStateUnread - only return unread items (default)
+	ItemStateUnread string = "unread"
+	// ItemStateArchive - only return archived items
+	ItemStateArchive string = "archive"
+	// ItemStateAll - return both unread and archived items
+	ItemStateAll string = "all"
+)
+
+const (
 	// ItemMediaAttachmentNoMedia - No media attached to the Pocket Item
 	ItemMediaAttachmentNoMedia ItemMediaAttachment = 0
 	// ItemMediaAttachmentHasMedia - Media is attached to the Pocket Item
@@ -34,13 +43,35 @@ const (
 	ItemMediaAttachmentIsMedia = 2
 )
 
+const (
+	// ContentTypeArticle -  article item
+	ContentTypeArticle ContentType = "article"
+	// ContentTypeVideo - Video item
+	ContentTypeVideo = "video"
+	// ContentTypeImage - Image item
+	ContentTypeImage = "image"
+)
+
+const (
+	// DetailTypeSimple - only return the titles and urls of each item
+	DetailTypeSimple DetailType = "simple"
+	// DetailTypeComplete - return all data about each item, including tags, images, authors, videos and more
+	DetailTypeComplete = "complete"
+)
+
 // TYPES
 
 // Time - alias for time.Time
 type Time time.Time
 
-// ItemStatus - Status of the Pocket Item, defined by ItemStatus constants
+// ItemStatus - Status of retrieved item
 type ItemStatus int
+
+// ContentType - Article video or image
+type ContentType string
+
+// DetailType - Simple or complete detail
+type DetailType string
 
 // ItemMediaAttachment - Is Media attached to the Pocket Item. Defined by ItemMedia constants
 type ItemMediaAttachment int
@@ -65,6 +96,8 @@ type AuthorisationResponse struct {
 
 // ItemRequest - Query pocket for a list of items
 type ItemRequest struct {
+	ConsumerKey string
+	AccessToken string `json:"access_token"`
 	State       string
 	Favorite    int
 	Tag         string

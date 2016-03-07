@@ -40,8 +40,14 @@ func main() {
 
 		// Test Retrieve
 		var ItemRequest Lint.ItemRequest
+		ItemRequest.ConsumerKey = consumerKey
+		ItemRequest.AccessToken = accessToken
+		ItemRequest.State = Lint.ItemStateAll
+		ItemRequest.ContentType = string(Lint.ContentTypeArticle)
+		ItemRequest.DetailType = string(Lint.DetailTypeSimple)
 		ItemRequest.Count = 10
-		items := Lint.GetItems(consumerKey, accessToken, ItemRequest)
+
+		items := Lint.GetItems(ItemRequest)
 		fmt.Println(items.GivenTitle)
 
 	} else {
