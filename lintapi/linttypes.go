@@ -59,8 +59,8 @@ type AuthenticationResponse struct {
 
 // AuthorisationResponse response from Pocket
 type AuthorisationResponse struct {
-	AccessToken string `json:"access_token,string"`
-	Username    string `json:"username,string"`
+	AccessToken string `json:"access_token"`
+	Username    string `json:"username"`
 }
 
 // ItemRequest - Query pocket for a list of items
@@ -80,8 +80,8 @@ type ItemRequest struct {
 
 // ItemResponse - An individual Pocket entry
 type ItemResponse struct {
-	ItemID        int        `json:"item_id,string"`
-	ResolvedID    int        `json:"resolved_id,string"`
+	ItemID        int        `json:"item_id"`
+	ResolvedID    int        `json:"resolved_id"`
 	GivenURL      string     `json:"given_url"`
 	ResolvedURL   string     `json:"resolved_url"`
 	GivenTitle    string     `json:"given_title"`
@@ -89,10 +89,10 @@ type ItemResponse struct {
 	Favorite      int        `json:",string"`
 	Status        ItemStatus `json:",string"`
 	Excerpt       string
-	IsArticle     int                 `json:"is_article,string"`
-	HasImage      ItemMediaAttachment `json:"has_image,string"`
-	HasVideo      ItemMediaAttachment `json:"has_video,string"`
-	WordCount     int                 `json:"word_count,string"`
+	IsArticle     int                 `json:"is_article"`
+	HasImage      ItemMediaAttachment `json:"has_image"`
+	HasVideo      ItemMediaAttachment `json:"has_video"`
+	WordCount     int                 `json:"word_count"`
 	Tags          map[string]map[string]interface{}
 	Authors       map[string]map[string]interface{}
 	Images        map[string]map[string]interface{}

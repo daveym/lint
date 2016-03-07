@@ -68,14 +68,14 @@ func Authorise(consumerKey string, code string) (string, string) {
 	err = json.Unmarshal([]byte(body), &r)
 
 	if err != nil {
-		fmt.Printf("%T\n%s\n%#v\n", err, err, err)
+		panic(err)
 	}
 
 	return r.AccessToken, r.Username
 }
 
 // GetItems -  Pull back items from Pocket
-func GetItems(consumerKey string, accessToken string, itemRequest ItemRequest) *ItemResponse {
+func GetItems(consumerKey string, accessToken string, itemRequest ItemRequest) ItemResponse {
 
 	request := map[string]string{"consumer_key": consumerKey, "access_token": accessToken}
 	jsonStr, _ := json.Marshal(request)
@@ -103,6 +103,6 @@ func GetItems(consumerKey string, accessToken string, itemRequest ItemRequest) *
 		fmt.Printf("%T\n%s\n%#v\n", err, err, err)
 	}
 
-	return r
+	return *r
 
 }

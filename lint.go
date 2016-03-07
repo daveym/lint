@@ -39,11 +39,10 @@ func main() {
 		fmt.Println("ACCESS TOKEN: " + accessToken + " USERNAME:" + username)
 
 		// Test Retrieve
-		//var ItemRequest Lint.ItemRequest
-		//ItemRequest.Count = 10
-
-		//items := Lint.GetItems(consumerKey, accessToken, ItemRequest)
-		//fmt.Println(items)
+		var ItemRequest Lint.ItemRequest
+		ItemRequest.Count = 10
+		items := Lint.GetItems(consumerKey, accessToken, ItemRequest)
+		fmt.Println(items.GivenTitle)
 
 	} else {
 		fmt.Println(consumerKey)
