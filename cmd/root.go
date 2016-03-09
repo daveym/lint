@@ -42,6 +42,9 @@ func Execute() {
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(-1)
+	} else {
+		fmt.Println("consumerkey")
+		fmt.Println(viper.Get("consumerkey"))
 	}
 }
 
@@ -53,10 +56,7 @@ func initConfig() {
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 	}
-
-	viper.SetConfigName(".lint")
-
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
+	viper.SetConfigName("lint")
+	viper.AddConfigPath("./")
+	viper.ReadInConfig()
 }

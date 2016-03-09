@@ -56,6 +56,8 @@ var authenticateCmd = &cobra.Command{
 
 				if err != nil {
 					fmt.Println("Error authorising your consumer key and request token")
+				} else {
+					println(accessToken)
 				}
 
 			}
