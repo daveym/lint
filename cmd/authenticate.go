@@ -40,17 +40,25 @@ var authenticateCmd = &cobra.Command{
 		if len(args) > 0 {
 
 			consumerKey := args[0]
-			requestToken := Lint.Authenticate(consumerKey)
+			requestToken, err := Lint.Authenticate(consumerKey)
 
-			fmt.Println("Please go to:")
-			fmt.Println("")
-			fmt.Println(Lint.UserAuthorisationURL + "request_token=" + requestToken + "&redirect_uri=" + Lint.RedirectURI)
-			fmt.Println("")
-			fmt.Println("and press ENTER when you have authorised the application to use Lint.")
-			bufio.NewReader(os.Stdin).ReadBytes('\n')
+			if err != nil {
+				fmt.Println("Please check your consumer key, it does not appear to be valid.")
+			} else {
+				fmt.Println("Please go to:")
+				fmt.Println("")
+				fmt.Println(Lint.UserAuthorisationURL + "request_token=" + requestToken + "&redirect_uri=" + Lint.RedirectURI)
+				fmt.Println("")
+				fmt.Println("and press ENTER when you have authorised the application to use Lint.")
+				bufio.NewReader(os.Stdin).ReadBytes('\n')
 
-			accessToken, _ := Lint.Authorise(consumerKey, requestToken)
-			fmt.Println(accessToken)
+				accessToken, _, err := Lint.Authorise(consumerKey, requestToken)
+
+				if err != nil {
+					fmt.Println("Error authorising your consumer key and request token")
+				}
+
+			}
 
 		} else {
 			fmt.Println("Consumer Key missing - please obtain this from the Pocket Developer site.")

@@ -26,11 +26,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 // Authenticate takes the the users consumer key and performs a one time authentication with the Pocket API to request access.
 // A Request Token is returned that should be used for all subsequent requests to Pocket.
-func Authenticate(consumerKey string) string {
+func Authenticate(consumerKey string) (string, error) {
 
 	request := map[string]string{"consumer_key": consumerKey, "redirect_uri": RedirectURI}
 	jsonStr, _ := json.Marshal(request)
@@ -43,7 +44,8 @@ func Authenticate(consumerKey string) string {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(-1)
 	}
 	defer resp.Body.Close()
 
@@ -52,21 +54,16 @@ func Authenticate(consumerKey string) string {
 	var r = new(AuthenticationResponse)
 	err = json.Unmarshal([]byte(body), &r)
 
-	if err != nil {
-		fmt.Printf("%T\n%s\n%#v\n", err, err, err)
-	}
-
-	return r.Code
+	return r.Code, err
 
 }
 
 // Authorise -  Using the consumerKey and request code, obtain an Access token and Pocket Username
-func Authorise(consumerKey string, code string) (string, string) {
+func Authorise(consumerKey string, code string) (string, string, error) {
 
 	request := map[string]string{"consumer_key": consumerKey, "code": code}
 	jsonStr, _ := json.Marshal(request)
 
-	fmt.Println(string(jsonStr))
 	req, err := http.NewRequest("POST", AuthorisationURL, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("charset", "UTF8")
@@ -75,25 +72,21 @@ func Authorise(consumerKey string, code string) (string, string) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(-1)
 	}
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("BODY:" + string(body))
 
 	var r = new(AuthorisationResponse)
 	err = json.Unmarshal([]byte(body), &r)
 
-	if err != nil {
-		panic(err)
-	}
-
-	return r.AccessToken, r.Username
+	return r.AccessToken, r.Username, err
 }
 
 // GetItems -  Pull back items from Pocket
-func GetItems(itemRequest ItemRequest) ItemResponse {
+func GetItems(itemRequest ItemRequest) (ItemResponse, error) {
 
 	jsonStr, _ := json.Marshal(itemRequest)
 
@@ -106,7 +99,8 @@ func GetItems(itemRequest ItemRequest) ItemResponse {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(-1)
 	}
 	defer resp.Body.Close()
 
@@ -116,10 +110,5 @@ func GetItems(itemRequest ItemRequest) ItemResponse {
 	var r = new(ItemResponse)
 	err = json.Unmarshal([]byte(body), &r)
 
-	if err != nil {
-		fmt.Printf("%T\n%s\n%#v\n", err, err, err)
-	}
-
-	return *r
-
+	return *r, err
 }
