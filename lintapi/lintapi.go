@@ -1,3 +1,23 @@
+// Copyright © 2016 davey mcglade  <davey.mcglade@gmail.com>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 package Lint
 
 import (
@@ -15,7 +35,6 @@ func Authenticate(consumerKey string) string {
 	request := map[string]string{"consumer_key": consumerKey, "redirect_uri": RedirectURI}
 	jsonStr, _ := json.Marshal(request)
 
-	fmt.Println(string(jsonStr))
 	req, err := http.NewRequest("POST", AuthenticationURL, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("charset", "UTF8")
@@ -30,7 +49,6 @@ func Authenticate(consumerKey string) string {
 
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	fmt.Println("BODY:" + string(body))
 	var r = new(AuthenticationResponse)
 	err = json.Unmarshal([]byte(body), &r)
 

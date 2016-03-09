@@ -1,58 +1,27 @@
-/*
-Usage:
-    lint auth
-    lint count
-    lint list
-    lint archive [comma separated ids]
-    lint delete  [comma separated ids]
-    lint --version
-
-Commands:
-    auth		      Get an access token for batch work.
-    count             Count the number of items in your Pocket list.
-	list			  List the articles held in pocket
-*/
+// Copyright © 2016 davey mcglade  <davey.mcglade@gmail.com>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-
-	"github.com/daveym/lint/lintapi"
-)
+import "github.com/daveym/lint/cmd"
 
 func main() {
-
-	consumerKey := ""
-
-	if consumerKey != "" {
-		fmt.Println(consumerKey)
-		requestToken := Lint.Authenticate(consumerKey)
-		fmt.Println("Please go to:" + Lint.UserAuthorisationURL + "request_token=" + requestToken + "&redirect_uri=" + Lint.RedirectURI)
-		fmt.Println("")
-		fmt.Println("Press ENTER when you have authorised the application to use Lint.")
-		bufio.NewReader(os.Stdin).ReadBytes('\n')
-
-		accessToken, username := Lint.Authorise(consumerKey, requestToken)
-		fmt.Println("ACCESS TOKEN: " + accessToken + " USERNAME:" + username)
-
-		// Test Retrieve
-		var ItemRequest Lint.ItemRequest
-		ItemRequest.ConsumerKey = consumerKey
-		ItemRequest.AccessToken = accessToken
-		ItemRequest.State = Lint.ItemStateAll
-		ItemRequest.ContentType = string(Lint.ContentTypeArticle)
-		ItemRequest.DetailType = string(Lint.DetailTypeSimple)
-		ItemRequest.Count = 10
-
-		items := Lint.GetItems(ItemRequest)
-		fmt.Println(items.GivenTitle)
-
-	} else {
-		fmt.Println(consumerKey)
-		fmt.Println("lint.json missing. Please add this file, with the following entries:")
-		fmt.Println("{'consumer_key:', 'Your Consumer Key'}")
-	}
+	cmd.Execute()
 }
