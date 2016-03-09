@@ -20,7 +20,12 @@
 
 package cmd
 
-import "github.com/spf13/cobra"
+import (
+	"fmt"
+
+	"github.com/daveym/lint/lintapi"
+	"github.com/spf13/cobra"
+)
 
 var listCmd = &cobra.Command{
 	Use:   "list",
@@ -28,16 +33,22 @@ var listCmd = &cobra.Command{
 	Long:  `Long description`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		/* var ItemRequest Lint.ItemRequest
-		ItemRequest.ConsumerKey = consumerKey
-		ItemRequest.AccessToken = accessToken
+		var ItemRequest Lint.ItemRequest
+		ItemRequest.ConsumerKey = ConsumerKey
+		ItemRequest.AccessToken = AccessToken
 		ItemRequest.State = Lint.ItemStateAll
 		ItemRequest.ContentType = string(Lint.ContentTypeArticle)
 		ItemRequest.DetailType = string(Lint.DetailTypeSimple)
 		ItemRequest.Count = 10
 
-		items := Lint.GetItems(ItemRequest)
-		fmt.Println(items.GivenTitle) */
+		items, err := Lint.GetItems(ItemRequest)
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		fmt.Println(items.GivenTitle)
 	},
 }
 

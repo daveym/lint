@@ -29,7 +29,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// authenticateCmd represents the authenticate command
+// ConsumerKey - Private key used to access Pocket API.
+var ConsumerKey = ""
+
+// AccessToken - Access token  used to access Pocket API (per request)
+var AccessToken = ""
+
 var authenticateCmd = &cobra.Command{
 	Use:   "auth",
 	Short: "Authenticate against Pocket using your consumer key. One off activity.",
@@ -37,10 +42,12 @@ var authenticateCmd = &cobra.Command{
 	can be found under the development area within the pocket website`,
 	Run: func(cmd *cobra.Command, args []string) {
 
+		//ConsumerKey = viper.Get("consumerkey")
+
 		if len(args) > 0 {
 
-			consumerKey := args[0]
-			requestToken, err := Lint.Authenticate(consumerKey)
+			ConsumerKey = args[0]
+			requestToken, err := Lint.Authenticate(ConsumerKey)
 
 			if err != nil {
 				fmt.Println("Please check your consumer key, it does not appear to be valid.")
@@ -52,12 +59,12 @@ var authenticateCmd = &cobra.Command{
 				fmt.Println("and press ENTER when you have authorised the application to use Lint.")
 				bufio.NewReader(os.Stdin).ReadBytes('\n')
 
-				accessToken, _, err := Lint.Authorise(consumerKey, requestToken)
+				AccessToken, _, err := Lint.Authorise(ConsumerKey, requestToken)
 
 				if err != nil {
 					fmt.Println("Error authorising your consumer key and request token")
 				} else {
-					println(accessToken)
+					println(AccessToken)
 				}
 
 			}
