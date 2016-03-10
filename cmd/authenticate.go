@@ -54,7 +54,13 @@ var authenticateCmd = &cobra.Command{
 				fmt.Println("Please check your consumer key, it does not appear to be valid.")
 			} else {
 
-				exec.Command("open", Lint.UserAuthorisationURL+"request_token="+requestToken+"&redirect_uri="+Lint.RedirectURI)
+				cmd := exec.Command("open", Lint.UserAuthorisationURL+"request_token="+requestToken+"&redirect_uri="+Lint.RedirectURI)
+				_, err := cmd.Output()
+
+				if err != nil {
+					println(err.Error())
+					return
+				}
 
 				fmt.Println("")
 				fmt.Println("Please authorise Lint from within your browser, or alternatively copy and paste the following link if the authentication page has not been displayed.")
