@@ -28,13 +28,17 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var cfgFile = "lint.yaml"
 
 // RootCmd - The base command for the application.
 var RootCmd = &cobra.Command{
 	Use:   "lint",
-	Short: "short desc",
-	Long:  `Long desc`,
+	Short: "Lint - pull back articles from your Pocket datastore and get rid of the fluff.",
+	Long: `Lint provides you with a way of seeing what you've saved to read later. Often we forget what we've stored, 
+	and lint aims to help you remember whats stored, but also provide a quick way to purge items you wont read, or retag 
+	items for easier retrieval later.
+
+	Lint uses the Pocket API, and is open source under the MIT license.`,
 }
 
 // Execute - Adds all defined commands
@@ -42,10 +46,9 @@ func Execute() {
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(-1)
-	} else {
-		fmt.Println("consumerkey")
-		fmt.Println(viper.Get("consumerkey"))
 	}
+
+	viper.Get("consumerkey")
 }
 
 func init() {

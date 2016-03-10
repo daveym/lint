@@ -29,8 +29,9 @@ import (
 
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "Short description",
-	Long:  `Long description`,
+	Short: "List items stored witin your Pocket data store",
+	Long: `List provides you with the means to query Pocket, pull back items by specific order 
+	and then use the results to perform follow up actions such as deleting or tagging`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		var ItemRequest Lint.ItemRequest
