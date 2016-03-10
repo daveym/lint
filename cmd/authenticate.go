@@ -24,6 +24,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 
 	"github.com/daveym/lint/lintapi"
 	"github.com/spf13/cobra"
@@ -52,8 +53,11 @@ var authenticateCmd = &cobra.Command{
 			if err != nil {
 				fmt.Println("Please check your consumer key, it does not appear to be valid.")
 			} else {
-				fmt.Println("Please go to:")
+
+				exec.Command("open", Lint.UserAuthorisationURL+"request_token="+requestToken+"&redirect_uri="+Lint.RedirectURI)
+
 				fmt.Println("")
+				fmt.Println("Please authorise Lint from within your browser, or alternatively copy and paste the following link if the authentication page has not been displayed.")
 				fmt.Println(Lint.UserAuthorisationURL + "request_token=" + requestToken + "&redirect_uri=" + Lint.RedirectURI)
 				fmt.Println("")
 				fmt.Println("and press ENTER when you have authorised the application to use Lint.")
