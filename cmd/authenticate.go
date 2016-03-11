@@ -43,18 +43,18 @@ var authenticateCmd = &cobra.Command{
 	can be found under the development area within the pocket website`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		//ConsumerKey = viper.Get("consumerkey")
-
 		if len(args) > 0 {
 
 			ConsumerKey = args[0]
-			requestToken, err := Lint.Authenticate(ConsumerKey)
+
+			client := LintApi.New(ConsumerKey, AccessToken)
+			requestToken, err := LintApi.Authenticate(client.ConsumerKey)
 
 			if err != nil {
 				fmt.Println("Please check your consumer key, it does not appear to be valid.")
 			} else {
 
-				cmd := exec.Command("open", Lint.UserAuthorisationURL+"request_token="+requestToken+"&redirect_uri="+Lint.RedirectURI)
+				cmd := exec.Command("open", LintApi.UserAuthorisationURL+"request_token="+requestToken+"&redirect_uri="+LintApi.RedirectURI)
 				_, err := cmd.Output()
 
 				if err != nil {
@@ -64,12 +64,12 @@ var authenticateCmd = &cobra.Command{
 
 				fmt.Println("")
 				fmt.Println("Please authorise Lint from within your browser, or alternatively copy and paste the following link if the authentication page has not been displayed.")
-				fmt.Println(Lint.UserAuthorisationURL + "request_token=" + requestToken + "&redirect_uri=" + Lint.RedirectURI)
+				fmt.Println(LintApi.UserAuthorisationURL + "request_token=" + requestToken + "&redirect_uri=" + LintApi.RedirectURI)
 				fmt.Println("")
 				fmt.Println("and press ENTER when you have authorised the application to use Lint.")
 				bufio.NewReader(os.Stdin).ReadBytes('\n')
 
-				AccessToken, _, err := Lint.Authorise(ConsumerKey, requestToken)
+				AccessToken, _, err := LintApi.Authorise(ConsumerKey, requestToken)
 
 				if err != nil {
 					fmt.Println("Error authorising your consumer key and request token")

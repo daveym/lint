@@ -34,15 +34,15 @@ var listCmd = &cobra.Command{
 	and then use the results to perform follow up actions such as deleting or tagging`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		var ItemRequest Lint.ItemRequest
+		var ItemRequest LintApi.ItemRequest
 		ItemRequest.ConsumerKey = ConsumerKey
 		ItemRequest.AccessToken = AccessToken
-		ItemRequest.State = Lint.ItemStateAll
-		ItemRequest.ContentType = string(Lint.ContentTypeArticle)
-		ItemRequest.DetailType = string(Lint.DetailTypeSimple)
+		ItemRequest.State = LintApi.ItemStateAll
+		ItemRequest.ContentType = string(LintApi.ContentTypeArticle)
+		ItemRequest.DetailType = string(LintApi.DetailTypeSimple)
 		ItemRequest.Count = 10
 
-		items, err := Lint.GetItems(ItemRequest)
+		items, err := LintApi.GetItems(ItemRequest)
 
 		if err != nil {
 			fmt.Println(err)

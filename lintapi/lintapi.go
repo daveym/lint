@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package Lint
+package LintApi
 
 import (
 	"bytes"
@@ -28,6 +28,12 @@ import (
 	"net/http"
 	"os"
 )
+
+// New creates a new Pocket client.
+func New(consumerKey string, accessToken string) *PocketClient {
+
+	return &PocketClient{ConsumerKey: consumerKey, AccessToken: accessToken}
+}
 
 // Authenticate takes the the users consumer key and performs a one time authentication with the Pocket API to request access.
 // A Request Token is returned that should be used for all subsequent requests to Pocket.
