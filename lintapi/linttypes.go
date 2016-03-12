@@ -17,7 +17,7 @@ type ContentType string
 // DetailType - Simple or complete detail
 type DetailType string
 
-//FavoriteFilter - Filter by favourite
+// FavoriteFilter - Filter by favourite
 type FavoriteFilter string
 
 // ItemMediaAttachment - Is Media attached to the Pocket Item. Defined by ItemMedia constants
@@ -29,8 +29,8 @@ type PocketClient struct {
 	AccessToken string `json:"access_token"`
 }
 
-// RequestTokenRequest - Obtain a code from Pocket
-type RequestTokenRequest struct {
+// RequestToken - Obtain a code from Pocket
+type RequestToken struct {
 	Code string `json:"code"`
 }
 
@@ -103,13 +103,9 @@ type ItemResponse struct {
 	HasImage      ItemMediaAttachment `json:"has_image"`
 	HasVideo      ItemMediaAttachment `json:"has_video"`
 	WordCount     int                 `json:"word_count"`
-	Tags          map[string]map[string]interface{}
-	Authors       map[string]map[string]interface{}
-	Images        map[string]map[string]interface{}
-	Videos        map[string]map[string]interface{}
-	SortID        int       `json:"sort_id"`
-	TimeAdded     time.Time `json:"time_added"`
-	TimeUpdated   time.Time `json:"time_updated"`
-	TimeRead      time.Time `json:"time_read"`
-	TimeFavorited time.Time `json:"time_favorited"`
+	SortID        int                 `json:"sort_id"`
+	TimeAdded     time.Time           `json:"time_added"`
+	TimeUpdated   time.Time           `json:"time_updated"`
+	TimeRead      time.Time           `json:"time_read"`
+	TimeFavorited time.Time           `json:"time_favorited"`
 }

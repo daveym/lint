@@ -1,6 +1,6 @@
 # Authorisation Finished!
 
-![image ](https://raw.githubusercontent.com/daveym/lint/master/Lint.png  =50x50)  
+![image ](https://raw.githubusercontent.com/daveym/lint/master/Lint.png)  
 
 **Hi there!**
 
