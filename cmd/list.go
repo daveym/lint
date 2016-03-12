@@ -1,6 +1,11 @@
 package cmd
 
-import "github.com/spf13/cobra"
+import (
+	"fmt"
+
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+)
 
 var listCmd = &cobra.Command{
 	Use:   "list",
@@ -8,6 +13,8 @@ var listCmd = &cobra.Command{
 	Long: `List provides you with the means to query Pocket, pull back items by specific order 
 	and then use the results to perform follow up actions such as deleting or tagging`,
 	Run: func(cmd *cobra.Command, args []string) {
+
+		fmt.Println(viper.GetString("AccessToken"))
 
 		/*var ItemRequest LintApi.ItemRequest
 		ItemRequest.ConsumerKey = LintApi.ConsumerKey

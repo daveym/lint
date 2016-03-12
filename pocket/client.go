@@ -1,4 +1,4 @@
-package LintApi
+package Pocket
 
 import (
 	"bytes"
@@ -6,10 +6,20 @@ import (
 	"net/http"
 )
 
+// API - Base interface type for Pocket API
+type API interface {
+	Authenticate(string, interface{}) error
+	Authorise(string, string, interface{}) error
+	Retrieve(ItemRequest, interface{}) error
+}
+
+// Client - Provide access the Pocket API
+type Client struct{}
+
 // Authenticate takes the the users consumer key and performs a one time authentication with
 // the Pocket API to request access. A Request Token is returned that should be used for all
 //  subsequent requests to Pocket.
-func Authenticate(consumerKey string, resp interface{}) error {
+func (p *Client) Authenticate(consumerKey string, resp interface{}) error {
 
 	request := map[string]string{"consumer_key": consumerKey, "redirect_uri": RedirectURI}
 	jsonStr, _ := json.Marshal(request)
@@ -19,7 +29,7 @@ func Authenticate(consumerKey string, resp interface{}) error {
 }
 
 // Authorise -  Using the consumerKey and request code, obtain an Access token and Pocket Username
-func Authorise(consumerKey string, code string, resp interface{}) error {
+func (p *Client) Authorise(consumerKey string, code string, resp interface{}) error {
 
 	request := map[string]string{"consumer_key": consumerKey, "code": code}
 	jsonStr, _ := json.Marshal(request)
@@ -29,7 +39,7 @@ func Authorise(consumerKey string, code string, resp interface{}) error {
 }
 
 // Retrieve -  Pull back items from Pocket
-func Retrieve(itemRequest ItemRequest, resp interface{}) error {
+func (p *Client) Retrieve(itemRequest ItemRequest, resp interface{}) error {
 
 	jsonStr, _ := json.Marshal(itemRequest)
 	err := postJSON("GET", RetrieveURL, jsonStr, resp)

@@ -1,4 +1,4 @@
-package LintApi
+package Pocket
 
 import "time"
 
@@ -22,12 +22,6 @@ type FavoriteFilter string
 
 // ItemMediaAttachment - Is Media attached to the Pocket Item. Defined by ItemMedia constants
 type ItemMediaAttachment int
-
-// PocketClient - hold consumerkey and AccessToken for each request
-type PocketClient struct {
-	ConsumerKey string `json:"consumer_key"`
-	AccessToken string `json:"access_token"`
-}
 
 // RequestToken - Obtain a code from Pocket
 type RequestToken struct {
