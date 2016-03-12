@@ -8,6 +8,7 @@ import (
 
 	"github.com/daveym/lint/lintapi"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var authenticateCmd = &cobra.Command{
@@ -17,9 +18,11 @@ var authenticateCmd = &cobra.Command{
 	can be found under the development area within the pocket website`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		AuthNResp := &LintApi.AuthenticationResponse{}
+		fmt.Println(viper.Get("AccessToken"))
 
+		AuthNResp := &LintApi.AuthenticationResponse{}
 		err := LintApi.Authenticate(LintApi.ConsumerKey, AuthNResp)
+
 		if err != nil {
 			fmt.Println("Please check your consumer key, it does not appear to be valid.")
 			return
@@ -43,7 +46,7 @@ var authenticateCmd = &cobra.Command{
 		err = LintApi.Authorise(LintApi.ConsumerKey, AuthNResp.Code, AuthRResp)
 
 		if err != nil {
-			fmt.Println("Error authorising your consumer key and request token")
+			fmt.Println("Error authorising your consumer key and request token. Have you granted permission to Lint?")
 		}
 
 		println(AuthRResp.AccessToken, AuthRResp.Username)

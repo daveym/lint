@@ -8,8 +8,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile = "lint.yaml"
-
 // RootCmd - The base command for the application.
 var RootCmd = &cobra.Command{
 	Use:   "lint",
@@ -36,10 +34,14 @@ func init() {
 }
 
 func initConfig() {
-	if cfgFile != "" {
-		viper.SetConfigFile(cfgFile)
-	}
+
 	viper.SetConfigName("lint")
-	viper.AddConfigPath("./")
-	viper.ReadInConfig()
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
+
+	err := viper.ReadInConfig()
+
+	if err != nil {
+		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+	}
 }

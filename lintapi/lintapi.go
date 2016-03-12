@@ -3,24 +3,8 @@ package LintApi
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"net/http"
-	"os"
 )
-
-func postJSON(action string, url string, data []byte, res interface{}) (err error) {
-
-	req, err := http.NewRequest(action, url, bytes.NewBuffer(data))
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("charset", "UTF8")
-	req.Header.Set("X-Accept", "application/json")
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-
-	return json.NewDecoder(resp.Body).Decode(res)
-}
 
 // Authenticate takes the the users consumer key and performs a one time authentication with
 // the Pocket API to request access. A Request Token is returned that should be used for all
@@ -44,30 +28,24 @@ func Authorise(consumerKey string, code string, resp interface{}) error {
 	return err
 }
 
-// GetItems -  Pull back items from Pocket
-func GetItems(itemRequest ItemRequest) (ItemResponse, error) {
+// Retrieve -  Pull back items from Pocket
+func Retrieve(itemRequest ItemRequest, resp interface{}) error {
 
 	jsonStr, _ := json.Marshal(itemRequest)
+	err := postJSON("GET", RetrieveURL, jsonStr, resp)
 
-	fmt.Println(string(jsonStr))
-	req, err := http.NewRequest("GET", RetrieveURL, bytes.NewBuffer(jsonStr))
+	return err
+}
+
+func postJSON(action string, url string, data []byte, resp interface{}) (err error) {
+
+	req, err := http.NewRequest(action, url, bytes.NewBuffer(data))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("charset", "UTF8")
 	req.Header.Set("X-Accept", "application/json")
 
 	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(-1)
-	}
-	defer resp.Body.Close()
+	jsonResp, err := client.Do(req)
 
-	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("GetItems response Body:", string(body))
-
-	var r = new(ItemResponse)
-	err = json.Unmarshal([]byte(body), &r)
-
-	return *r, err
+	return json.NewDecoder(jsonResp.Body).Decode(resp)
 }

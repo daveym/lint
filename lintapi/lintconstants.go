@@ -6,6 +6,9 @@ const PocketHome string = "https://getpocket.com"
 // ConsumerKey - Your Pocket ConsumerKey, accessible from the Pocket Website
 const ConsumerKey string = "52360-b80675f1df25abe767d4110b"
 
+// CfgFile - Name of viper config file. Lint will store its values in the working directory.
+const CfgFile string = "lint.yaml"
+
 // URLS
 const (
 	// AuthenticationURL - API address to Authenticate Pocket Consumer Key

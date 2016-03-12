@@ -17,7 +17,7 @@ var listCmd = &cobra.Command{
 		ItemRequest.DetailType = string(LintApi.DetailTypeSimple)
 		ItemRequest.Count = 10
 
-		items, err := LintApi.GetItems(ItemRequest)
+		items, err := LintApi.Retrieve(ItemRequest)
 
 		if err != nil {
 			fmt.Println(err)
