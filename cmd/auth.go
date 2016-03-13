@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/daveym/lint/api"
 	"github.com/daveym/lint/pocket"
 	"github.com/spf13/cobra"
@@ -14,7 +16,8 @@ var authCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		pc := &pocket.Client{}
-		api.Authenticate(pc)
+		msg := api.Authenticate(pc)
+		fmt.Println(msg)
 
 	}}
 

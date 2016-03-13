@@ -4,12 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"net/http"
+	"os/exec"
 )
 
 // API - Base interface type for Pocket API. Allows us to mock/test.
 type API interface {
 	Authenticate(string, interface{}) error
-	Authorise(string, string, interface{}) error
+	AuthoriseUse(string, string, string) error
+	GetAccessToken(string, string, interface{}) error
 	Retrieve(ItemRequest, interface{}) error
 }
 
@@ -28,8 +30,20 @@ func (p *Client) Authenticate(consumerKey string, resp interface{}) error {
 	return err
 }
 
-// Authorise -  Using the consumerKey and request code, obtain an Access token and Pocket Username
-func (p *Client) Authorise(consumerKey string, code string, resp interface{}) error {
+// AuthoriseUse -  Redirect the user to the Pocket Authorise screen
+func (p *Client) AuthoriseUse(url string, code string, uri string) error {
+
+	browser := exec.Command("open", url+
+		"request_token="+code+
+		"&redirect_uri="+uri)
+
+	_, err := browser.Output()
+
+	return err
+}
+
+// GetAccessToken -  Using the consumerKey and request code, obtain an Access token and Pocket Username
+func (p *Client) GetAccessToken(consumerKey string, code string, resp interface{}) error {
 
 	request := map[string]string{"consumer_key": consumerKey, "code": code}
 	jsonStr, _ := json.Marshal(request)
