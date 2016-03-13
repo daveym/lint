@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/daveym/lint/api"
+	"github.com/daveym/lint/pocket"
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +13,8 @@ var authenticateCmd = &cobra.Command{
 	can be found under the development area within the pocket website`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		Api.Authenticate()
+		pc := &pocket.Client{}
+		api.Authenticate(pc)
 
 	}}
 

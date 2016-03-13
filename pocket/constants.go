@@ -1,4 +1,4 @@
-package Pocket
+package pocket
 
 // ConsumerKey - Your Pocket ConsumerKey, accessible from the Pocket Website
 const ConsumerKey string = "52360-b80675f1df25abe767d4110b"

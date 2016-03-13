@@ -1,4 +1,4 @@
-package Pocket
+package pocket
 
 import "time"
 
