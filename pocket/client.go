@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// API - Base interface type for Pocket API
+// API - Base interface type for Pocket API. Allows us to mock/test.
 type API interface {
 	Authenticate(string, interface{}) error
 	Authorise(string, string, interface{}) error
@@ -18,7 +18,7 @@ type Client struct{}
 
 // Authenticate takes the the users consumer key and performs a one time authentication with
 // the Pocket API to request access. A Request Token is returned that should be used for all
-//  subsequent requests to Pocket.
+// subsequent requests to Pocket.
 func (p *Client) Authenticate(consumerKey string, resp interface{}) error {
 
 	request := map[string]string{"consumer_key": consumerKey, "redirect_uri": RedirectURI}
@@ -47,6 +47,8 @@ func (p *Client) Retrieve(itemRequest ItemRequest, resp interface{}) error {
 	return err
 }
 
+// Generic post method, url and data are incoming. Response is a  base interface
+// that we can use to that we can use to return many reponses types.
 func postJSON(action string, url string, data []byte, resp interface{}) (err error) {
 
 	req, err := http.NewRequest(action, url, bytes.NewBuffer(data))
