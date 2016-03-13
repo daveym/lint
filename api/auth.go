@@ -11,10 +11,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Authenticate agaimst Pockets API
+// Authenticate against Pockets API
 func Authenticate(pc pocket.API) {
 
-	if viper.GetBool("AccessToken") {
+	if len(viper.GetString("AccessToken")) > 0 {
 		println("Already authenticated - Access Token present in lint.yaml")
 		return
 	}
@@ -38,7 +38,7 @@ func Authenticate(pc pocket.API) {
 		return
 	}
 
-	fmt.Println("Press ENTER when you have authorised Lint to access to Pocket.")
+	fmt.Print("Press ENTER when you have authorised Lint to access to Pocket.")
 	bufio.NewReader(os.Stdin).ReadBytes('\n')
 
 	AuthRResp := &pocket.AuthorisationResponse{}
