@@ -6,6 +6,7 @@ import (
 	"github.com/daveym/lint/api"
 	"github.com/daveym/lint/pocket"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var authCmd = &cobra.Command{
@@ -16,6 +17,10 @@ var authCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		pc := &pocket.Client{}
+
+		pc.SetConsumerKey(viper.GetString("ConsumerKey"))
+		pc.SetConsumerKey(viper.GetString("AccessToken"))
+
 		msg := api.Authenticate(pc)
 		fmt.Println(msg)
 

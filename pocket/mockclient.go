@@ -1,7 +1,30 @@
 package pocket
 
 // MockClient - Used for mocking
-type MockClient struct{}
+type MockClient struct {
+	_consumerKey string
+	_accessToken string
+}
+
+// SetConsumerKey - Set the new consumer Key
+func (p *MockClient) SetConsumerKey(newKey string) {
+	p._consumerKey = newKey
+}
+
+// GetConsumerKey - Set the new consumer Key
+func (p *MockClient) GetConsumerKey() string {
+	return p._consumerKey
+}
+
+// SetAccessToken - Set the new consumer Key
+func (p *MockClient) SetAccessToken(newToken string) {
+	p._accessToken = newToken
+}
+
+// GetAccessToken - Set the new consumer Key
+func (p *MockClient) GetAccessToken() string {
+	return p._accessToken
+}
 
 // Authenticate - Mock instance
 func (p *MockClient) Authenticate(consumerKey string, resp interface{}) error {
@@ -10,15 +33,15 @@ func (p *MockClient) Authenticate(consumerKey string, resp interface{}) error {
 	return err
 }
 
-// AuthoriseUse - Mock instance
-func (p *MockClient) AuthoriseUse(url string, code string, uri string) error {
+// UserAuthorise - Mock instance
+func (p *MockClient) UserAuthorise(url string, code string, uri string) error {
 
 	var err error
 	return err
 }
 
-// GetAccessToken -  Mock instance
-func (p *MockClient) GetAccessToken(consumerKey string, code string, resp interface{}) error {
+// RetrieveAccessToken -  Mock instance
+func (p *MockClient) RetrieveAccessToken(consumerKey string, code string, resp interface{}) error {
 	var err error
 	return err
 }

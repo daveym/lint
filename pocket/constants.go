@@ -1,8 +1,5 @@
 package pocket
 
-// ConsumerKey - Your Pocket ConsumerKey, accessible from the Pocket Website
-const ConsumerKey string = "52360-b80675f1df25abe767d4110b"
-
 // PocketHome - Pocket base url
 const PocketHome string = "https://getpocket.com"
 

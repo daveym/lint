@@ -9,14 +9,41 @@ import (
 
 // API - Base interface type for Pocket API. Allows us to mock/test.
 type API interface {
+	SetConsumerKey(string)
+	GetConsumerKey() string
+	SetAccessToken(string)
+	GetAccessToken() string
 	Authenticate(string, interface{}) error
-	AuthoriseUse(string, string, string) error
-	GetAccessToken(string, string, interface{}) error
+	UserAuthorise(string, string, string) error
+	RetrieveAccessToken(string, string, interface{}) error
 	Retrieve(ItemRequest, interface{}) error
 }
 
 // Client - Provide access the Pocket API
-type Client struct{}
+type Client struct {
+	_consumerKey string
+	_accessToken string
+}
+
+// SetConsumerKey - Set the new consumer Key
+func (p *Client) SetConsumerKey(newKey string) {
+	p._consumerKey = newKey
+}
+
+// GetConsumerKey - Set the new consumer Key
+func (p *Client) GetConsumerKey() string {
+	return p._consumerKey
+}
+
+// SetAccessToken - Set the new consumer Key
+func (p *Client) SetAccessToken(newToken string) {
+	p._accessToken = newToken
+}
+
+// GetAccessToken - Set the new consumer Key
+func (p *Client) GetAccessToken() string {
+	return p._accessToken
+}
 
 // Authenticate takes the the users consumer key and performs a one time authentication with
 // the Pocket API to request access. A Request Token is returned that should be used for all
@@ -30,11 +57,11 @@ func (p *Client) Authenticate(consumerKey string, resp interface{}) error {
 	return err
 }
 
-// AuthoriseUse -  Redirect the user to the Pocket Authorise screen
-func (p *Client) AuthoriseUse(url string, code string, uri string) error {
+// UserAuthorise -  Redirect the user to the Pocket Authorise screen
+func (p *Client) UserAuthorise(url string, reqtoken string, uri string) error {
 
 	browser := exec.Command("open", url+
-		"request_token="+code+
+		"request_token="+reqtoken+
 		"&redirect_uri="+uri)
 
 	_, err := browser.Output()
@@ -42,8 +69,8 @@ func (p *Client) AuthoriseUse(url string, code string, uri string) error {
 	return err
 }
 
-// GetAccessToken -  Using the consumerKey and request code, obtain an Access token and Pocket Username
-func (p *Client) GetAccessToken(consumerKey string, code string, resp interface{}) error {
+// RetrieveAccessToken -  Using the consumerKey and request code, obtain an Access token and Pocket Username
+func (p *Client) RetrieveAccessToken(consumerKey string, code string, resp interface{}) error {
 
 	request := map[string]string{"consumer_key": consumerKey, "code": code}
 	jsonStr, _ := json.Marshal(request)
