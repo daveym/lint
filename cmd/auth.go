@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/daveym/lint/api"
 	"github.com/daveym/lint/pocket"
@@ -22,12 +21,10 @@ var authCmd = &cobra.Command{
 		pc.SetConsumerKey(viper.GetString("ConsumerKey"))
 		pc.SetAccessToken(viper.GetString("AccessToken"))
 
-		msg, err := api.Authenticate(pc)
+		msg := api.Authenticate(pc)
 
-		if err != nil {
-			fmt.Println(msg)
-			os.Exit(-1)
-		}
+		fmt.Println(msg)
+
 	}}
 
 func init() {
