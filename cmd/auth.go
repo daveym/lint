@@ -22,7 +22,6 @@ var authCmd = &cobra.Command{
 		pc.SetAccessToken(viper.GetString("AccessToken"))
 
 		msg := api.Authenticate(pc)
-
 		fmt.Println(msg)
 
 	}}

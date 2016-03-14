@@ -39,7 +39,7 @@ func Authenticate(pc pocket.API) string {
 		return msg
 	}
 
-	fmt.Print("Press ENTER when you have authorised Lint to access to Pocket.")
+	fmt.Println("Press ENTER when you have authorised Lint to access to Pocket.")
 	bufio.NewReader(os.Stdin).ReadBytes('\n')
 
 	AuthRResp := &pocket.AuthorisationResponse{}

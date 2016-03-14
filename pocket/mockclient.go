@@ -52,8 +52,16 @@ func (p *MockClient) UserAuthorise(url string, code string, uri string) error {
 
 // RetrieveAccessToken -  Mock instance
 func (p *MockClient) RetrieveAccessToken(consumerKey string, code string, resp interface{}) error {
+
 	var err error
-	return err
+
+	if p.GetAccessToken() != "SUCCESS" {
+		err = errors.New("Invalid Key")
+		return err
+	}
+
+	return nil
+
 }
 
 // Retrieve -  Mock instance
