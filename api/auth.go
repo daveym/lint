@@ -20,11 +20,6 @@ func Authenticate(pc pocket.API) string {
 		return msg
 	}
 
-	if len(pc.GetAccessToken()) > 0 {
-		msg = "Already authenticated - Access Token already present in lint.yaml"
-		return msg
-	}
-
 	AuthNResp := &pocket.AuthenticationResponse{}
 	err := pc.Authenticate(pc.GetConsumerKey(), AuthNResp)
 

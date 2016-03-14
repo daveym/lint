@@ -10,6 +10,8 @@ var err error
 
 func TestAuthNoConsumerKey(t *testing.T) {
 
+	t.Log("Executing: TestAuthNoConsumerKey")
+
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("")
 
@@ -23,23 +25,9 @@ func TestAuthNoConsumerKey(t *testing.T) {
 	}
 }
 
-func TestAuthAccessTokenExists(t *testing.T) {
-
-	mc := &pocket.MockClient{}
-	mc.SetConsumerKey("12345")
-	mc.SetAccessToken("12345")
-
-	expectedmsg := "Already authenticated - Access Token already present in lint.yaml"
-	actualmsg := Authenticate(mc)
-
-	if actualmsg != expectedmsg {
-		t.Log("Expected: " + expectedmsg)
-		t.Log("Actual: " + actualmsg)
-		t.Fatal("TestAuthAccessTokenExists failed")
-	}
-}
-
 func TestAuthInvalidConsumerKey(t *testing.T) {
+
+	t.Log("Executing: TestAuthInvalidConsumerKey")
 
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("INVALIDKEY")
@@ -56,6 +44,8 @@ func TestAuthInvalidConsumerKey(t *testing.T) {
 
 func TestBrowserAuthFail(t *testing.T) {
 
+	t.Log("Executing: TestBrowserAuthFail")
+
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("INVALIDBROWSER")
 
@@ -71,8 +61,11 @@ func TestBrowserAuthFail(t *testing.T) {
 
 func TestAuthGetAccessTokenFail(t *testing.T) {
 
+	t.Log("Executing: TestAuthGetAccessTokenFail")
+
 	mc := &pocket.MockClient{}
-	mc.SetConsumerKey("12345")
+	mc.SetConsumerKey("FAIL")
+	mc.SetAccessToken("FAIL")
 
 	expectedmsg := "Error authorising your consumer key and request token. Have you granted permission to Lint?"
 	actualmsg := Authenticate(mc)
@@ -84,11 +77,12 @@ func TestAuthGetAccessTokenFail(t *testing.T) {
 	}
 }
 
-/*
 func TestAuthGetAccessTokenSuccess(t *testing.T) {
 
+	t.Log("Executing: TestAuthGetAccessTokenSuccess")
+
 	mc := &pocket.MockClient{}
-	mc.SetConsumerKey("12345")
+	mc.SetConsumerKey("45678")
 	mc.SetAccessToken("SUCCESS")
 
 	expectedmsg := "Authentication Successful - Access Token is persisted to lint.yaml"
@@ -99,4 +93,4 @@ func TestAuthGetAccessTokenSuccess(t *testing.T) {
 		t.Log("Actual: " + actualmsg)
 		t.Fatal("TestAuthGetAccessTokenSuccess failed")
 	}
-}*/
+}

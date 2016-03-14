@@ -18,12 +18,12 @@ func (p *MockClient) GetConsumerKey() string {
 	return p._consumerKey
 }
 
-// SetAccessToken - Set the new consumer Key
+// SetAccessToken - Set the new access token
 func (p *MockClient) SetAccessToken(newToken string) {
 	p._accessToken = newToken
 }
 
-// GetAccessToken - Set the new consumer Key
+// GetAccessToken - Set the new access token
 func (p *MockClient) GetAccessToken() string {
 	return p._accessToken
 }
@@ -54,14 +54,12 @@ func (p *MockClient) UserAuthorise(url string, code string, uri string) error {
 func (p *MockClient) RetrieveAccessToken(consumerKey string, code string, resp interface{}) error {
 
 	var err error
-
-	if p.GetAccessToken() != "SUCCESS" {
+	if consumerKey == "FAIL" {
 		err = errors.New("Invalid Key")
 		return err
 	}
 
 	return nil
-
 }
 
 // Retrieve -  Mock instance
