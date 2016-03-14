@@ -30,7 +30,7 @@ type RequestToken struct {
 
 // AuthenticationResponse response from Pocket
 type AuthenticationResponse struct {
-	Code  string
+	Code  string // Code is request Token
 	State string
 }
 

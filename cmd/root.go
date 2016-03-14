@@ -42,6 +42,7 @@ func initConfig() {
 	err := viper.ReadInConfig()
 
 	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+		fmt.Println("Please make sure that lint.yaml exists in the working directory.")
+		os.Exit(-1)
 	}
 }

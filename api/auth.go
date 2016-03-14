@@ -14,9 +14,10 @@ import (
 func Authenticate(pc pocket.API) string {
 
 	msg := ""
+	var err error
 
 	if len(pc.GetConsumerKey()) == 0 {
-		msg = "Consumer Key not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
+		msg = "Consumer Key is not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
 		return msg
 	}
 
@@ -26,7 +27,7 @@ func Authenticate(pc pocket.API) string {
 	}
 
 	AuthNResp := &pocket.AuthenticationResponse{}
-	err := pc.Authenticate(pc.GetConsumerKey(), AuthNResp)
+	err = pc.Authenticate(pc.GetConsumerKey(), AuthNResp)
 
 	if err != nil {
 		msg = "Please check your consumer key, it does not appear to be valid."
@@ -35,7 +36,7 @@ func Authenticate(pc pocket.API) string {
 
 	err = pc.UserAuthorise(pocket.UserAuthorisationURL, AuthNResp.Code, pocket.RedirectURI)
 	if err != nil {
-		msg = "Error whilst authentication Lint access. Please check your connectivity/default browser."
+		msg = "Error whilst approving Lint access to Pocket data. Please check your connectivity/default browser."
 		return msg
 	}
 
@@ -58,5 +59,6 @@ func Authenticate(pc pocket.API) string {
 	viper.Set("Username", AuthRResp.Username)
 
 	msg = "Authentication Successful - Access Token is persisted to lint.yaml"
+
 	return msg
 }

@@ -1,5 +1,7 @@
 package pocket
 
+import "errors"
+
 // MockClient - Used for mocking
 type MockClient struct {
 	_consumerKey string
@@ -30,6 +32,10 @@ func (p *MockClient) GetAccessToken() string {
 func (p *MockClient) Authenticate(consumerKey string, resp interface{}) error {
 
 	var err error
+
+	if consumerKey == "INVALIDKEY" {
+		err = errors.New("Invalid Key")
+	}
 	return err
 }
 
@@ -37,6 +43,10 @@ func (p *MockClient) Authenticate(consumerKey string, resp interface{}) error {
 func (p *MockClient) UserAuthorise(url string, code string, uri string) error {
 
 	var err error
+
+	if p.GetConsumerKey() == "INVALIDBROWSER" {
+		err = errors.New("Invalid Key")
+	}
 	return err
 }
 
