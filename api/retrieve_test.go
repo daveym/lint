@@ -2,8 +2,6 @@ package api
 
 import "testing"
 
-var err error
-
 func TestRetrieveNoAuthKey(t *testing.T) {
 
 	/*t.Log("Executing: TestAuthNoConsumerKey")
