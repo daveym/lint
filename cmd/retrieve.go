@@ -20,20 +20,19 @@ var retrieveCmd = &cobra.Command{
 		pc.SetConsumerKey(viper.GetString("ConsumerKey"))
 		pc.SetAccessToken(viper.GetString("AccessToken"))
 
-		ireq := pocket.ItemRequest{}
-		ireq.ConsumerKey = pc.GetConsumerKey()
-		ireq.AccessToken = pc.GetConsumerKey()
-		ireq.State = pocket.ItemStateAll
-		ireq.ContentType = string(pocket.ContentTypeArticle)
-		ireq.DetailType = string(pocket.DetailTypeSimple)
-		ireq.Count = 10
+		itemreq := pocket.ItemRequest{}
+		itemreq.ConsumerKey = pc.GetConsumerKey()
+		itemreq.AccessToken = pc.GetAccessToken()
+		itemreq.State = pocket.ItemStateAll
+		itemreq.ContentType = string(pocket.ContentTypeArticle)
+		itemreq.DetailType = string(pocket.DetailTypeSimple)
+		itemreq.Count = 10
 
-		irsp := pocket.ItemResponse{}
-		msg := api.Retrieve(pc, ireq, irsp)
+		itemresp := pocket.ItemResponse{}
+		msg := api.Retrieve(pc, itemreq, itemresp)
 
 		fmt.Println(msg)
-
-		fmt.Println(irsp.GivenTitle)
+		fmt.Println(itemresp.GivenTitle)
 	},
 }
 

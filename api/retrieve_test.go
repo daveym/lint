@@ -4,7 +4,7 @@ import "testing"
 
 var err error
 
-func TestAuthNoConsumerKey(t *testing.T) {
+func TestRetrieveNMoAuthKey(t *testing.T) {
 
 	/*t.Log("Executing: TestAuthNoConsumerKey")
 
