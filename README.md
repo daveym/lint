@@ -1,6 +1,4 @@
-# Lint [![Build Status](https://travis-ci.org/daveym/lint.svg?branch=master)](https://travis-ci.org/daveym/lint)
-
-https://goreportcard.com/badge/github.com/daveym/lint
+# Lint [![Build Status](https://travis-ci.org/daveym/lint.svg?branch=master)](https://travis-ci.org/daveym/lint) <a href="http://goreportcard.com/report/daveym/lint"><img src="https://camo.githubusercontent.com/897657567000bd843315798076b1b9f097bc5bb4/687474703a2f2f676f7265706f7274636172642e636f6d2f62616467652f626f627a697563686b6f76736b692f637565" alt="Report Card" data-canonical-src="http://goreportcard.com/badge/daveym/lint" style="max-width:100%;"></a>
 
 ## Synopsis
 
