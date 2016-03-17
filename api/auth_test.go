@@ -85,7 +85,7 @@ func TestAuthGetAccessTokenSuccess(t *testing.T) {
 	mc.SetConsumerKey("45678")
 	mc.SetAccessToken("SUCCESS")
 
-	expectedmsg := "Authentication Successful - Access Token is persisted to lint.yaml"
+	expectedmsg := "Authentication Successful - Pocket Access Token is persisted to lint.yaml"
 	actualmsg := Authenticate(mc)
 
 	if actualmsg != expectedmsg {
