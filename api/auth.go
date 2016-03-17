@@ -52,7 +52,7 @@ func Authenticate(pc pocket.API) string {
 	viper.Set("AccessToken", pc.GetAccessToken())
 	viper.Set("Username", AuthRResp.Username)
 
-	msg = "Authentication Successful - Pocket Access Token is persisted to lint.yaml:" + pc.GetAccessToken()
+	msg = "Authentication Successful - Pocket Access Token is persisted to lint.yaml"
 
 	return msg
 }
