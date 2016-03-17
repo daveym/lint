@@ -17,22 +17,12 @@ var retrieveCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		pc := &pocket.Client{}
+
 		pc.SetConsumerKey(viper.GetString("ConsumerKey"))
 		pc.SetAccessToken(viper.GetString("AccessToken"))
 
-		itemreq := pocket.ItemRequest{}
-		itemreq.ConsumerKey = pc.GetConsumerKey()
-		itemreq.AccessToken = pc.GetAccessToken()
-		itemreq.State = pocket.ItemStateAll
-		itemreq.ContentType = string(pocket.ContentTypeArticle)
-		itemreq.DetailType = string(pocket.DetailTypeSimple)
-		itemreq.Count = 10
-
-		itemresp := pocket.ItemResponse{}
-		msg := api.Retrieve(pc, itemreq, itemresp)
-
+		msg := api.Retrieve(pc, args)
 		fmt.Println(msg)
-		fmt.Println(itemresp.GivenTitle)
 	},
 }
 

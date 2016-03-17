@@ -1,5 +1,7 @@
 # Lint [![Build Status](https://travis-ci.org/daveym/lint.svg?branch=master)](https://travis-ci.org/daveym/lint)
 
+https://goreportcard.com/badge/github.com/daveym/lint
+
 ## Synopsis
 
 Lint is a terminal based application that pulls back your Pocket entries and allows you to add, update, remove or retag these entries. Lint is currently in development and not yet at a releasable stage, but feel free to have a look. At the moment, I'm using this as a vehicle for learning Go as well, so any advice or pointers are greatly appreciated.

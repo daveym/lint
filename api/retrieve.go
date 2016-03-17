@@ -7,25 +7,27 @@ import (
 )
 
 // Retrieve against Pocket API. Interface used to allow mock to be passed in.
-func Retrieve(pc pocket.API, itemreq pocket.ItemRequest, itemresp pocket.ItemResponse) string {
+func Retrieve(pc pocket.API, args []string) string {
 
 	msg := ""
 
-	fmt.Println(pc.GetConsumerKey())
-	fmt.Println(pc.GetAccessToken())
-	fmt.Println(itemreq.ConsumerKey)
-	fmt.Println(itemreq.AccessToken)
-	fmt.Println(itemreq.Count)
-	fmt.Println(itemreq.DetailType)
+	itemreq := pocket.ItemRequest{}
+	itemreq.ConsumerKey = pc.GetConsumerKey()
+	itemreq.AccessToken = pc.GetAccessToken()
+	itemreq.State = pocket.ItemStateAll
+	itemreq.ContentType = string(pocket.ContentTypeArticle)
+	itemreq.DetailType = string(pocket.DetailTypeSimple)
+	itemreq.Tag = "Golang"
+	itemreq.Count = 1
 
+	itemresp := &pocket.ItemResponse{}
 	err := pc.Retrieve(itemreq, itemresp)
 
-	fmt.Println(itemresp)
-
 	if err != nil {
-		fmt.Println(err.Error())
-		msg = "Error retrieving from Pocket"
+		msg = "Error retrieving from Pocket" + err.Error()
 	}
+
+	fmt.Println(itemresp.WordCount)
 
 	return msg
 }

@@ -3,6 +3,7 @@ package pocket
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os/exec"
 )
@@ -80,16 +81,16 @@ func (p *Client) RetrieveAccessToken(consumerKey string, code string, resp inter
 }
 
 // Retrieve -  Pull back items from Pocket
-func (p *Client) Retrieve(itemRequest ItemRequest, resp interface{}) error {
+func (p *Client) Retrieve(itemreq ItemRequest, resp interface{}) error {
 
-	jsonStr, _ := json.Marshal(itemRequest)
+	jsonStr, _ := json.Marshal(itemreq)
 	err := postJSON("GET", RetrieveURL, jsonStr, resp)
 
 	return err
 }
 
 // Generic post method, url and data are incoming. Response is a  base interface
-// that we can use to that we can use to return many reponses types.
+// that we can use to return many response types.
 func postJSON(action string, url string, data []byte, resp interface{}) (err error) {
 
 	req, err := http.NewRequest(action, url, bytes.NewBuffer(data))
@@ -100,5 +101,8 @@ func postJSON(action string, url string, data []byte, resp interface{}) (err err
 	client := &http.Client{}
 	jsonResp, err := client.Do(req)
 
-	return json.NewDecoder(jsonResp.Body).Decode(resp)
+	json.NewDecoder(jsonResp.Body).Decode(resp)
+	fmt.Printf("Got response %d; X-Error=[%s]", jsonResp.StatusCode, jsonResp.Header.Get("X-Error"))
+
+	return
 }
