@@ -59,22 +59,29 @@ type RetrieveRequest struct {
 type RetrieveResponse struct {
 	Status   int
 	Complete int
-	List     map[int]Item
+	List     map[string]Item
+	Since    int
 }
 
 // Item - Individual Pocket Item
 type Item struct {
-	ItemID        int    `json:"item_id"`
-	ResolvedID    int    `json:"resolved_id"`
+	ItemID        string `json:"item_id"`
+	ResolvedID    string `json:"resolved_id"`
 	GivenURL      string `json:"given_url"`
 	GivenTitle    string `json:"given_title"`
-	Favorite      string `json:",string"`
-	Status        string `json:",string"`
+	Favorite      int
+	Status        int
+	TimeAdded     string `json:"time_added"`
+	TimeUpdated   string `json:"time_updated"`
+	TimeRead      string `json:"time_read"`
+	TimeFavorited string `json:"time_favorited"`
+	SortID        string `json:"sort_id"`
 	ResolvedTitle string `json:"resolved_title"`
 	ResolvedURL   string `json:"resolved_url"`
 	Excerpt       string
-	IsArticle     string `json:"is_article,string"`
-	HasImage      string `json:"has_image,string"`
-	HasVideo      string `json:"has_video,string"`
-	WordCount     string `json:"word_count,string"`
+	IsArticle     int `json:"is_article"`
+	IsIndex       int `json:"is_index"`
+	HasVideo      int `json:"has_video"`
+	HasImage      int `json:"has_image"`
+	WordCount     int `json:"word_count"`
 }

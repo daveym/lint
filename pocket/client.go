@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os/exec"
 )
@@ -105,6 +106,11 @@ func postJSON(action string, url string, data []byte, resp interface{}) (err err
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+
+	body, _ := ioutil.ReadAll(jsonResp.Body)
+	fmt.Println(string(body))
+
+	//err = json.Unmarshal([]byte(body), &resp)
 
 	err = json.NewDecoder(jsonResp.Body).Decode(resp)
 	if err != nil {

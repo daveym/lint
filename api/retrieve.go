@@ -1,6 +1,10 @@
 package api
 
-import "github.com/daveym/lint/pocket"
+import (
+	"fmt"
+
+	"github.com/daveym/lint/pocket"
+)
 
 // Retrieve against Pocket API. Interface used to allow mock to be passed in.
 func Retrieve(pc pocket.API, args []string) string {
@@ -10,7 +14,6 @@ func Retrieve(pc pocket.API, args []string) string {
 	itemreq := pocket.RetrieveRequest{}
 	itemreq.ConsumerKey = pc.GetConsumerKey()
 	itemreq.AccessToken = pc.GetAccessToken()
-	itemreq.Tag = "docker"
 	itemreq.Count = 1
 
 	itemresp := &pocket.RetrieveResponse{}
@@ -20,10 +23,9 @@ func Retrieve(pc pocket.API, args []string) string {
 		msg = "Error retrieving from Pocket: " + err.Error()
 	}
 
-	/*	items := []api.Item{}
-		for _, item := range res.List {
-			items = append(items, item)
-		}*/
+	for _, item := range itemresp.List {
+		fmt.Println(item.ItemID)
+	}
 
 	return msg
 }
