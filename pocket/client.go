@@ -17,7 +17,7 @@ type API interface {
 	Authenticate(string, interface{}) error
 	UserAuthorise(string, string, string) error
 	RetrieveAccessToken(string, string, interface{}) error
-	Retrieve(ItemRequest, interface{}) error
+	Retrieve(RetrieveRequest, interface{}) error
 }
 
 // Client - Provide access the Pocket API
@@ -81,10 +81,11 @@ func (p *Client) RetrieveAccessToken(consumerKey string, code string, resp inter
 }
 
 // Retrieve -  Pull back items from Pocket
-func (p *Client) Retrieve(itemreq ItemRequest, resp interface{}) error {
+func (p *Client) Retrieve(itemreq RetrieveRequest, resp interface{}) error {
 
-	jsonStr, _ := json.Marshal(itemreq)
-	err := postJSON("GET", RetrieveURL, jsonStr, resp)
+	jsonStr, err := json.Marshal(itemreq)
+
+	err = postJSON("GET", RetrieveURL, jsonStr, resp)
 
 	return err
 }
@@ -101,8 +102,14 @@ func postJSON(action string, url string, data []byte, resp interface{}) (err err
 	client := &http.Client{}
 	jsonResp, err := client.Do(req)
 
-	json.NewDecoder(jsonResp.Body).Decode(resp)
-	fmt.Printf("Got response %d; X-Error=[%s]", jsonResp.StatusCode, jsonResp.Header.Get("X-Error"))
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	err = json.NewDecoder(jsonResp.Body).Decode(resp)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 
 	return
 }

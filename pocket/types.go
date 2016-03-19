@@ -1,7 +1,5 @@
 package pocket
 
-import "time"
-
 // State of returned items
 type State string
 
@@ -40,7 +38,7 @@ type AuthorisationResponse struct {
 	Username    string `json:"username"`
 }
 
-// RetrieveRequest - make a request to Pocket for specific items
+// RetrieveRequest - response from Pocket
 type RetrieveRequest struct {
 	ConsumerKey string         `json:"consumer_key"`
 	AccessToken string         `json:"access_token"`
@@ -57,53 +55,26 @@ type RetrieveRequest struct {
 	Offset      int            `json:"offset,omitempty"`
 }
 
-// RetrieveResponse - List of retrieved items from Pocket
+// RetrieveResponse - List of items retrieved from Pocket
 type RetrieveResponse struct {
-	List     map[string]ItemResponse
 	Status   int
 	Complete int
-	Since    int
+	List     map[int]Item
 }
 
-// ItemRequest - Query pocket for a list of items
-type ItemRequest struct {
-	ConsumerKey string `json:"consumer_key"`
-	AccessToken string `json:"access_token"`
-	State       string
-	Favorite    int
-	Tag         string
-	ContentType string
-	Sort        string
-	DetailType  string
-	Search      string
-	Domain      string
-	Since       time.Time
-	Count       int
-	Offset      int
-}
-
-// ItemResponse - An individual Pocket entry
-type ItemResponse struct {
-	ItemID        int        `json:"item_id"`
-	ResolvedID    int        `json:"resolved_id"`
-	GivenURL      string     `json:"given_url"`
-	ResolvedURL   string     `json:"resolved_url"`
-	GivenTitle    string     `json:"given_title"`
-	ResolvedTitle string     `json:"resolved_title"`
-	Favorite      int        `json:",string"`
-	Status        ItemStatus `json:",string"`
+// Item - Individual Pocket Item
+type Item struct {
+	ItemID        int    `json:"item_id"`
+	ResolvedID    int    `json:"resolved_id"`
+	GivenURL      string `json:"given_url"`
+	GivenTitle    string `json:"given_title"`
+	Favorite      string `json:",string"`
+	Status        string `json:",string"`
+	ResolvedTitle string `json:"resolved_title"`
+	ResolvedURL   string `json:"resolved_url"`
 	Excerpt       string
-	IsArticle     int                 `json:"is_article"`
-	HasImage      ItemMediaAttachment `json:"has_image"`
-	HasVideo      ItemMediaAttachment `json:"has_video"`
-	WordCount     int                 `json:"word_count"`
-	Tags          map[string]map[string]interface{}
-	Authors       map[string]map[string]interface{}
-	Images        map[string]map[string]interface{}
-	Videos        map[string]map[string]interface{}
-	SortID        int       `json:"sort_id"`
-	TimeAdded     time.Time `json:"time_added"`
-	TimeUpdated   time.Time `json:"time_updated"`
-	TimeRead      time.Time `json:"time_read"`
-	TimeFavorited time.Time `json:"time_favorited"`
+	IsArticle     string `json:"is_article,string"`
+	HasImage      string `json:"has_image,string"`
+	HasVideo      string `json:"has_video,string"`
+	WordCount     string `json:"word_count,string"`
 }
