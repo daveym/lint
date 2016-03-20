@@ -14,7 +14,7 @@ func Retrieve(pc pocket.API, args []string) string {
 	itemreq := pocket.RetrieveRequest{}
 	itemreq.ConsumerKey = pc.GetConsumerKey()
 	itemreq.AccessToken = pc.GetAccessToken()
-	itemreq.Count = 1
+	itemreq.Count = 15
 
 	itemresp := &pocket.RetrieveResponse{}
 	err := pc.Retrieve(itemreq, itemresp)
@@ -23,8 +23,9 @@ func Retrieve(pc pocket.API, args []string) string {
 		msg = "Error retrieving from Pocket: " + err.Error()
 	}
 
-	for _, item := range itemresp.List {
-		fmt.Println(item.ItemID)
+	items := itemresp.List
+	for _, item := range items {
+		msg = fmt.Sprintf("%v %v %v\n", item.ItemID, item.GivenTitle, item.GivenURL)
 	}
 
 	return msg

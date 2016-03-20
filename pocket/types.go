@@ -65,23 +65,38 @@ type RetrieveResponse struct {
 
 // Item - Individual Pocket Item
 type Item struct {
-	ItemID        string `json:"item_id"`
-	ResolvedID    string `json:"resolved_id"`
-	GivenURL      string `json:"given_url"`
-	GivenTitle    string `json:"given_title"`
-	Favorite      int
-	Status        int
-	TimeAdded     string `json:"time_added"`
-	TimeUpdated   string `json:"time_updated"`
-	TimeRead      string `json:"time_read"`
-	TimeFavorited string `json:"time_favorited"`
-	SortID        string `json:"sort_id"`
-	ResolvedTitle string `json:"resolved_title"`
-	ResolvedURL   string `json:"resolved_url"`
+	ItemID        int        `json:"item_id,string"`
+	ResolvedID    int        `json:"resolved_id,string"`
+	GivenURL      string     `json:"given_url"`
+	GivenTitle    string     `json:"given_title"`
+	Favorite      int        `json:",string"`
+	Status        ItemStatus `json:",string"`
+	SortID        int        `json:"sort_id"`
+	ResolvedTitle string     `json:"resolved_title"`
+	ResolvedURL   string     `json:"resolved_url"`
 	Excerpt       string
-	IsArticle     int `json:"is_article"`
-	IsIndex       int `json:"is_index"`
-	HasVideo      int `json:"has_video"`
-	HasImage      int `json:"has_image"`
-	WordCount     int `json:"word_count"`
+	IsArticle     int                 `json:"is_article,string"`
+	HasImage      ItemMediaAttachment `json:"has_image,string"`
+	HasVideo      ItemMediaAttachment `json:"has_video,string"`
+	WordCount     int                 `json:"word_count,string"`
+
+	/*	ItemID        string `json:"item_id"`
+		ResolvedID    string `json:"resolved_id"`
+		GivenURL      string `json:"given_url"`
+		GivenTitle    string `json:"given_title"`
+		Favorite      int
+		Status        int
+		TimeAdded     string `json:"time_added"`
+		TimeUpdated   string `json:"time_updated"`
+		TimeRead      string `json:"time_read"`
+		TimeFavorited string `json:"time_favorited"`
+		SortID        string `json:"sort_id"`
+		ResolvedTitle string `json:"resolved_title"`
+		ResolvedURL   string `json:"resolved_url"`
+		Excerpt       string
+		IsArticle     int `json:"is_article"`
+		IsIndex       int `json:"is_index"`
+		HasVideo      int `json:"has_video"`
+		HasImage      int `json:"has_image"`
+		WordCount     int `json:"word_count"`*/
 }

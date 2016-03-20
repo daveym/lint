@@ -45,9 +45,9 @@ const (
 	// ItemMediaAttachmentNoMedia - No media attached to the Pocket Item
 	ItemMediaAttachmentNoMedia ItemMediaAttachment = 0
 	// ItemMediaAttachmentHasMedia - Media is attached to the Pocket Item
-	ItemMediaAttachmentHasMedia = 1
+	ItemMediaAttachmentHasMedia ItemMediaAttachment = 1
 	// ItemMediaAttachmentIsMedia - The Pocket Item is media only
-	ItemMediaAttachmentIsMedia = 2
+	ItemMediaAttachmentIsMedia ItemMediaAttachment = 2
 )
 
 // ARTICLE TYPE
@@ -55,9 +55,9 @@ const (
 	// ContentTypeArticle -  article item
 	ContentTypeArticle ContentType = "article"
 	// ContentTypeVideo - Video item
-	ContentTypeVideo = "video"
+	ContentTypeVideo ContentType = "video"
 	// ContentTypeImage - Image item
-	ContentTypeImage = "image"
+	ContentTypeImage ContentType = "image"
 )
 
 // DETAIL TYPE
@@ -65,20 +65,20 @@ const (
 	// DetailTypeSimple - only return the titles and urls of each item
 	DetailTypeSimple DetailType = "simple"
 	// DetailTypeComplete - return all data about each item, including tags, images, authors, videos and more
-	DetailTypeComplete = "complete"
+	DetailTypeComplete DetailType = "complete"
 )
 
 // FAVOURITE FILTER
 const (
 	FavoriteFilterUnspecified FavoriteFilter = ""
-	FavoriteFilterUnfavorited                = "0"
-	FavoriteFilterFavorited                  = "1"
+	FavoriteFilterUnfavorited FavoriteFilter = "0"
+	FavoriteFilterFavorited   FavoriteFilter = "1"
 )
 
 // SORT FILTER
 const (
 	SortNewest Sort = "newest"
-	SortOldest      = "oldest"
-	SortTitle       = "title"
-	SortSite        = "site"
+	SortOldest Sort = "oldest"
+	SortTitle  Sort = "title"
+	SortSite   Sort = "site"
 )

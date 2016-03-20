@@ -22,7 +22,7 @@ var retrieveCmd = &cobra.Command{
 		pc.SetAccessToken(viper.GetString("AccessToken"))
 
 		msg := api.Retrieve(pc, args)
-		fmt.Println(msg)
+		fmt.Print(msg)
 	},
 }
 
