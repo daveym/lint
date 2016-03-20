@@ -11,6 +11,11 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 
 	msg := ""
 
+	if len(pc.GetConsumerKey()) == 0 {
+		msg = "Consumer Key is not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
+		return msg
+	}
+
 	itemreq := pocket.RetrieveRequest{}
 	itemreq.ConsumerKey = pc.GetConsumerKey()
 	itemreq.AccessToken = pc.GetAccessToken()
