@@ -7,16 +7,19 @@ import (
 )
 
 // Retrieve against Pocket API. Interface used to allow mock to be passed in.
-func Retrieve(pc pocket.API, args []string) string {
+func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, countVal int) string {
 
 	msg := ""
 
 	itemreq := pocket.RetrieveRequest{}
 	itemreq.ConsumerKey = pc.GetConsumerKey()
 	itemreq.AccessToken = pc.GetAccessToken()
-	itemreq.Count = 20
-
+	itemreq.Search = searchVal
+	itemreq.Domain = domainVal
+	itemreq.Tag = tagVal
+	itemreq.Count = countVal
 	itemresp := &pocket.RetrieveResponse{}
+
 	err := pc.Retrieve(itemreq, itemresp)
 
 	if err != nil {
