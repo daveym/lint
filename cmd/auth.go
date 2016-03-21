@@ -22,6 +22,10 @@ var authCmd = &cobra.Command{
 		pc.SetAccessToken(viper.GetString("AccessToken"))
 
 		msg := api.Authenticate(pc)
+
+		viper.Set("ConsumerKey", pc.GetConsumerKey())
+		viper.Set("AccessToken", pc.GetAccessToken())
+
 		fmt.Println(msg)
 
 	}}

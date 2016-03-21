@@ -16,6 +16,11 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 		return msg
 	}
 
+	if countVal == 0 {
+		msg = "Please specify a count parameter greater than 0."
+		return msg
+	}
+
 	itemreq := pocket.RetrieveRequest{}
 	itemreq.ConsumerKey = pc.GetConsumerKey()
 	itemreq.AccessToken = pc.GetAccessToken()
