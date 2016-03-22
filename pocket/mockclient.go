@@ -64,6 +64,6 @@ func (p *MockClient) RetrieveAccessToken(consumerKey string, code string, resp i
 
 // Retrieve -  Mock instance
 func (p *MockClient) Retrieve(req RetrieveRequest, resp interface{}) error {
-	var err error
-	return err
+
+	return nil
 }

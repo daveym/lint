@@ -21,6 +21,11 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 		return msg
 	}
 
+	if len(searchVal) == 0 && len(domainVal) == 0 && len(tagVal) == 0 {
+		msg = "Please specify a search, domain or tag parameter."
+		return msg
+	}
+
 	itemreq := pocket.RetrieveRequest{}
 	itemreq.ConsumerKey = pc.GetConsumerKey()
 	itemreq.AccessToken = pc.GetAccessToken()
@@ -28,6 +33,7 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 	itemreq.Domain = domainVal
 	itemreq.Tag = tagVal
 	itemreq.Count = countVal
+
 	itemresp := &pocket.RetrieveResponse{}
 
 	err := pc.Retrieve(itemreq, itemresp)
@@ -36,7 +42,13 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 		msg = "Error retrieving from Pocket: " + err.Error()
 	}
 
+	fmt.Println("ITEM RESPONSE:")
+	fmt.Println(itemresp)
+
 	items := itemresp.List
+
+	fmt.Println(len(items))
+
 	for _, item := range items {
 		msg = msg + fmt.Sprintf("%v %v %v\n", item.ItemID, item.GivenTitle, item.GivenURL)
 	}
