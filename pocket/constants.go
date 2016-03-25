@@ -18,6 +18,8 @@ const (
 	RedirectURI string = "https://github.com/daveym/lint/blob/master/AUTHCOMPLETE.md"
 	// RetrieveURL - API Address to query Pocket Items
 	RetrieveURL = "https://getpocket.com/v3/get"
+	// ModifyURL - API Address to modify Pocket Items
+	ModifyURL = "https://getpocket.com/v3/send"
 )
 
 // ITEM STATUS

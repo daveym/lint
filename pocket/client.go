@@ -18,6 +18,7 @@ type API interface {
 	UserAuthorise(string, string, string) error
 	RetrieveAccessToken(string, string, *AuthorisationResponse) error
 	Retrieve(RetrieveRequest, *RetrieveResponse) error
+	Modify(ModifyRequest, *ModifyResponse) error
 }
 
 // Client - Provide access the Pocket API
@@ -82,6 +83,16 @@ func (p *Client) RetrieveAccessToken(consumerKey string, code string, resp *Auth
 
 // Retrieve -  Pull back items from Pocket
 func (p *Client) Retrieve(itemreq RetrieveRequest, resp *RetrieveResponse) error {
+
+	jsonStr, err := json.Marshal(itemreq)
+
+	err = postJSON("GET", RetrieveURL, jsonStr, resp)
+
+	return err
+}
+
+// Modify -  Modify items in Pocket
+func (p *Client) Modify(itemreq ModifyRequest, resp *ModifyResponse) error {
 
 	jsonStr, err := json.Marshal(itemreq)
 

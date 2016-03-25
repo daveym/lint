@@ -16,7 +16,7 @@ var countVal int
 
 var retrieveCmd = &cobra.Command{
 	Use:   "retrieve",
-	Short: "Retrieve items stored witin your Pocket data store. Use flag -s, -d to specific a search term or domain",
+	Short: "Retrieve items stored witin your Pocket data store. Use flags -s, -d and -t to specific a search term, domain or tag",
 	Long: `Retrieve provides you with the means to query Pocket, pull back items by specific order 
 	and then use the results to perform follow up actions such as deleting or tagging`,
 }

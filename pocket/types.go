@@ -80,3 +80,17 @@ type Item struct {
 	HasVideo      ItemMediaAttachment `json:"has_video,string"`
 	WordCount     int                 `json:"word_count,string"`
 }
+
+// ModifyRequest - Send actions to pocket, i.e. add, archive, readd, favourite, unfavourite, delete
+type ModifyRequest struct {
+	ConsumerKey string `json:"consumer_key"`
+	AccessToken string `json:"access_token"`
+	Action      string
+	ItemID      int
+}
+
+// ModifyResponse - Result of modifications against pocket.
+type ModifyResponse struct {
+	Status  int
+	Actions map[string]string
+}
