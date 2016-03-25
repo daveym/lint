@@ -109,7 +109,7 @@ func postJSON(action string, url string, data []byte, resp interface{}) (err err
 	err = json.NewDecoder(jsonResp.Body).Decode(resp)
 
 	if err != nil {
-		fmt.Println(err.Error())
+		return err
 	}
 
 	return err
