@@ -18,7 +18,7 @@ type DetailType string
 // FavoriteFilter - Filter by favourite
 type FavoriteFilter string
 
-// ItemMediaAttachment - Is Media attached to the Pocket Item. Defined by ItemMedia constants
+// ItemMediaAttachment - Is Media attached to the Pocket Item.
 type ItemMediaAttachment int
 
 // RequestToken - Obtain a code from Pocket
@@ -79,24 +79,4 @@ type Item struct {
 	HasImage      ItemMediaAttachment `json:"has_image,string"`
 	HasVideo      ItemMediaAttachment `json:"has_video,string"`
 	WordCount     int                 `json:"word_count,string"`
-
-	/*	ItemID        string `json:"item_id"`
-		ResolvedID    string `json:"resolved_id"`
-		GivenURL      string `json:"given_url"`
-		GivenTitle    string `json:"given_title"`
-		Favorite      int
-		Status        int
-		TimeAdded     string `json:"time_added"`
-		TimeUpdated   string `json:"time_updated"`
-		TimeRead      string `json:"time_read"`
-		TimeFavorited string `json:"time_favorited"`
-		SortID        string `json:"sort_id"`
-		ResolvedTitle string `json:"resolved_title"`
-		ResolvedURL   string `json:"resolved_url"`
-		Excerpt       string
-		IsArticle     int `json:"is_article"`
-		IsIndex       int `json:"is_index"`
-		HasVideo      int `json:"has_video"`
-		HasImage      int `json:"has_image"`
-		WordCount     int `json:"word_count"`*/
 }

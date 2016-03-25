@@ -1,6 +1,9 @@
 package pocket
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 // MockClient - Used for mocking
 type MockClient struct {
@@ -65,5 +68,51 @@ func (p *MockClient) RetrieveAccessToken(consumerKey string, code string, resp i
 // Retrieve -  Mock instance
 func (p *MockClient) Retrieve(req RetrieveRequest, resp interface{}) error {
 
-	return nil
+	var err error
+
+	fakeResp := RetrieveResponse{
+		Status:   123,
+		Complete: 456,
+		List:     make(map[string]Item),
+		Since:    789}
+
+	fakeItem := Item{
+		Excerpt:       "A sample test docker article",
+		Favorite:      1,
+		GivenTitle:    "Docket Test 1",
+		GivenURL:      "http://dockettest1.com",
+		HasImage:      ItemMediaAttachmentNoMedia,
+		HasVideo:      ItemMediaAttachmentNoMedia,
+		IsArticle:     1,
+		ItemID:        11111,
+		ResolvedID:    11111,
+		ResolvedTitle: "Docket Test 1",
+		ResolvedURL:   "http://dockettest1.com",
+		SortID:        11111,
+		Status:        ItemStatusUnread,
+		WordCount:     150}
+
+	if req.Search == "docker" {
+
+		fakeResp.List["11111"] = fakeItem
+		resp = fakeResp
+	}
+
+	if req.Search == "nothing" {
+
+		fakeResp := RetrieveResponse{
+			Status:   0,
+			Complete: 0,
+			List:     make(map[string]Item),
+			Since:    0}
+
+		resp = fakeResp
+
+		fmt.Println("")
+		fmt.Println("MOCK RESPONSE:")
+		fmt.Println(resp)
+	}
+
+	return err
+
 }

@@ -38,16 +38,19 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 
 	err := pc.Retrieve(itemreq, itemresp)
 
+	fmt.Println("RETRIEVE METHOD RESPONSE:")
+	fmt.Println(itemresp)
+
 	if err != nil {
 		msg = "Error retrieving from Pocket: " + err.Error()
 	}
 
-	fmt.Println("ITEM RESPONSE:")
-	fmt.Println(itemresp)
-
 	items := itemresp.List
 
-	fmt.Println(len(items))
+	if len(items) == 0 {
+		msg = "No matching values found in your pocket store."
+		return msg
+	}
 
 	for _, item := range items {
 		msg = msg + fmt.Sprintf("%v %v %v\n", item.ItemID, item.GivenTitle, item.GivenURL)

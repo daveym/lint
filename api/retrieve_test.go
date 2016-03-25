@@ -79,3 +79,55 @@ func TestRetrieveNoCriteria(t *testing.T) {
 		t.Fatal("TestRetrieveNoCriteria failed")
 	}
 }
+
+func TestRetrieveWithNoItemsFound(t *testing.T) {
+
+	t.Log("Executing: TestRetrieveWithSearchCriteria")
+
+	var searchVal, domainVal, tagVal string
+	var countVal int
+
+	mc := &pocket.MockClient{}
+	mc.SetConsumerKey("45678")
+	mc.SetAccessToken("SUCCESS")
+
+	searchVal = "nothing"
+	domainVal = ""
+	tagVal = ""
+	countVal = 1
+
+	expectedmsg := "No matching values found in your pocket store."
+	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
+
+	if actualmsg != expectedmsg {
+		t.Log("Expected: " + expectedmsg)
+		t.Log("Actual: " + actualmsg)
+		t.Fatal("TestRetrieveWithSearchCriteria failed")
+	}
+}
+
+/*func TestRetrieveWithSearchCriteria(t *testing.T) {
+
+	t.Log("Executing: TestRetrieveWithSearchCriteria")
+
+	var searchVal, domainVal, tagVal string
+	var countVal int
+
+	mc := &pocket.MockClient{}
+	mc.SetConsumerKey("45678")
+	mc.SetAccessToken("SUCCESS")
+
+	searchVal = "docker"
+	domainVal = ""
+	tagVal = ""
+	countVal = 1
+
+	expectedmsg := "11111 Docket Test 1 Docker http://dockettest1.com"
+	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
+
+	if actualmsg != expectedmsg {
+		t.Log("Expected: " + expectedmsg)
+		t.Log("Actual: " + actualmsg)
+		t.Fatal("TestRetrieveWithSearchCriteria failed")
+	}
+}*/
