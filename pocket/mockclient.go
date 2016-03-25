@@ -100,5 +100,11 @@ func (p *MockClient) Retrieve(req RetrieveRequest, resp *RetrieveResponse) error
 	}
 
 	return err
+}
 
+// Modify -  Modify items in Pocket
+func (p *MockClient) Modify(req ModifyRequest, resp *ModifyResponse) error {
+
+	var err error
+	return err
 }

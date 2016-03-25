@@ -92,9 +92,9 @@ func (p *Client) Retrieve(itemreq RetrieveRequest, resp *RetrieveResponse) error
 }
 
 // Modify -  Modify items in Pocket
-func (p *Client) Modify(itemreq ModifyRequest, resp *ModifyResponse) error {
+func (p *Client) Modify(req ModifyRequest, resp *ModifyResponse) error {
 
-	jsonStr, err := json.Marshal(itemreq)
+	jsonStr, err := json.Marshal(req)
 
 	err = postJSON("GET", RetrieveURL, jsonStr, resp)
 
