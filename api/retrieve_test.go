@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/daveym/lint/pocket"
@@ -106,7 +107,7 @@ func TestRetrieveWithNoItemsFound(t *testing.T) {
 	}
 }
 
-/*func TestRetrieveWithSearchCriteria(t *testing.T) {
+func TestRetrieveWithSearchCriteria(t *testing.T) {
 
 	t.Log("Executing: TestRetrieveWithSearchCriteria")
 
@@ -122,12 +123,15 @@ func TestRetrieveWithNoItemsFound(t *testing.T) {
 	tagVal = ""
 	countVal = 1
 
-	expectedmsg := "11111 Docket Test 1 Docker http://dockettest1.com"
+	expectedmsg := fmt.Sprintf("%v %v %v\n", 11111, "Docker", "http://docker.com")
 	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
+
+	fmt.Println("***", expectedmsg, "***")
+	fmt.Println("***", actualmsg, "***")
 
 	if actualmsg != expectedmsg {
 		t.Log("Expected: " + expectedmsg)
 		t.Log("Actual: " + actualmsg)
 		t.Fatal("TestRetrieveWithSearchCriteria failed")
 	}
-}*/
+}

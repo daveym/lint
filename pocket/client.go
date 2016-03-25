@@ -14,10 +14,10 @@ type API interface {
 	GetConsumerKey() string
 	SetAccessToken(string)
 	GetAccessToken() string
-	Authenticate(string, interface{}) error
+	Authenticate(string, *AuthenticationResponse) error
 	UserAuthorise(string, string, string) error
-	RetrieveAccessToken(string, string, interface{}) error
-	Retrieve(RetrieveRequest, interface{}) error
+	RetrieveAccessToken(string, string, *AuthorisationResponse) error
+	Retrieve(RetrieveRequest, *RetrieveResponse) error
 }
 
 // Client - Provide access the Pocket API
@@ -49,7 +49,7 @@ func (p *Client) GetAccessToken() string {
 // Authenticate takes the the users consumer key and performs a one time authentication with
 // the Pocket API to request access. A Request Token is returned that should be used for all
 // subsequent requests to Pocket.
-func (p *Client) Authenticate(consumerKey string, resp interface{}) error {
+func (p *Client) Authenticate(consumerKey string, resp *AuthenticationResponse) error {
 
 	request := map[string]string{"consumer_key": consumerKey, "redirect_uri": RedirectURI}
 	jsonStr, _ := json.Marshal(request)
@@ -71,7 +71,7 @@ func (p *Client) UserAuthorise(url string, reqtoken string, uri string) error {
 }
 
 // RetrieveAccessToken -  Using the consumerKey and request code, obtain an Access token and Pocket Username
-func (p *Client) RetrieveAccessToken(consumerKey string, code string, resp interface{}) error {
+func (p *Client) RetrieveAccessToken(consumerKey string, code string, resp *AuthorisationResponse) error {
 
 	request := map[string]string{"consumer_key": consumerKey, "code": code}
 	jsonStr, _ := json.Marshal(request)
@@ -81,7 +81,7 @@ func (p *Client) RetrieveAccessToken(consumerKey string, code string, resp inter
 }
 
 // Retrieve -  Pull back items from Pocket
-func (p *Client) Retrieve(itemreq RetrieveRequest, resp interface{}) error {
+func (p *Client) Retrieve(itemreq RetrieveRequest, resp *RetrieveResponse) error {
 
 	jsonStr, err := json.Marshal(itemreq)
 

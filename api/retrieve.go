@@ -38,9 +38,6 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 
 	err := pc.Retrieve(itemreq, itemresp)
 
-	fmt.Println("RETRIEVE METHOD RESPONSE:")
-	fmt.Println(itemresp)
-
 	if err != nil {
 		msg = "Error retrieving from Pocket: " + err.Error()
 	}
