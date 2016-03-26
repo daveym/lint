@@ -48,6 +48,11 @@ func Authenticate(pc pocket.API) string {
 	cfgval := fmt.Sprintf("ConsumerKey: %v\nAccessToken: %v\nUsername: %v", pc.GetConsumerKey(), AuthRResp.AccessToken, AuthRResp.Username)
 	err = ioutil.WriteFile(pocket.CfgFile, []byte(cfgval), 0644)
 
+	if err != nil {
+		msg = "Error persisting consumer key, access token and username to lint.yaml"
+		return msg
+	}
+
 	viper.Set("ConsumerKey", pc.GetConsumerKey())
 	viper.Set("AccessToken", pc.GetAccessToken())
 	viper.Set("Username", AuthRResp.Username)
