@@ -126,9 +126,6 @@ func TestRetrieveWithSearchCriteria(t *testing.T) {
 	expectedmsg := fmt.Sprintf("%v %v %v\n", 11111, "Docker", "http://docker.com")
 	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
 
-	fmt.Println("***", expectedmsg, "***")
-	fmt.Println("***", actualmsg, "***")
-
 	if actualmsg != expectedmsg {
 		t.Log("Expected: " + expectedmsg)
 		t.Log("Actual: " + actualmsg)
