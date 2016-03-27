@@ -40,6 +40,7 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 
 	if err != nil {
 		msg = "Error retrieving from Pocket: " + err.Error()
+		return msg
 	}
 
 	items := itemresp.List
