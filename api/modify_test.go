@@ -10,13 +10,14 @@ func TestModifyNoConsumerKey(t *testing.T) {
 
 	t.Log("Executing: TestModifyNoConsumerKey")
 
-	var addCmdVal string
+	var itemVal string
+	var args []string
 
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("")
 
 	expectedmsg := "Consumer Key is not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
-	actualmsg := Modify(mc, addCmdVal)
+	actualmsg := Modify(mc, itemVal, args)
 
 	if actualmsg != expectedmsg {
 		t.Log("Expected: " + expectedmsg)
@@ -29,16 +30,17 @@ func TestModifyNoCriteria(t *testing.T) {
 
 	t.Log("Executing: TestModifyNoCriteria")
 
-	var addCmdVal string
+	var itemVal string
+	var args []string
 
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("45678")
 	mc.SetAccessToken("SUCCESS")
 
-	addCmdVal = ""
+	itemVal = ""
 
 	expectedmsg := "Please specify a modify parameter (-a : add)"
-	actualmsg := Modify(mc, addCmdVal)
+	actualmsg := Modify(mc, itemVal, args)
 
 	if actualmsg != expectedmsg {
 		t.Log("Expected: " + expectedmsg)

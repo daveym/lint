@@ -16,7 +16,7 @@ var RootCmd = &cobra.Command{
 	and lint aims to help you remember whats stored, but also provide a quick way to purge items you wont read, or retag 
 	items for easier retrieval later.
 
-	Lint uses the Pocket API, and is open source under the MIT license.`,
+	Run 'lint COMMAND --help' for more information on a command.`,
 }
 
 // Execute - Adds all defined commands

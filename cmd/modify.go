@@ -9,11 +9,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-var addCmdVal string
+var itemID string
 
 var modifyCmd = &cobra.Command{
 	Use:   "modify",
-	Short: "Modify items stored witin your Pocket data store (add, archive, re-add, favourite, unfavourite, delete",
+	Short: "Modify items stored witin your Pocket data store (add, archive, re-add, favourite, unfavourite, delete)",
 	Long: `Modify your pocket items. 
 	Add - Add a new item to pocket using ./lint modify -a itemID, tags (comma separated), title, url
 	Archive - Move an item to pockets archive
@@ -27,16 +27,28 @@ var modifyCmd = &cobra.Command{
 func init() {
 
 	modifyCmd.Run = modify
-	modifyCmd.Flags().StringVarP(&addCmdVal, "add", "a", "", "Add a new item to pocket using ./lint modify -a itemID, tags(comma separated), title, url")
+
+	// itemID is the first parameter to each of the commands.
+	modifyCmd.Flags().StringVarP(&itemID, "add", "a", "", "Add a new item to pocket using ./lint modify -a itemID, tags(comma separated), title, url")
+	modifyCmd.Flags().StringVarP(&itemID, "del", "d", "", "Delete an  item from pocket using ./lint modify -d itemID")
+
 	RootCmd.AddCommand(modifyCmd)
 }
 
 func modify(cmd *cobra.Command, args []string) {
 
+	msg := ""
+
 	pc := &pocket.Client{}
 	pc.SetConsumerKey(viper.GetString("ConsumerKey"))
 	pc.SetAccessToken(viper.GetString("AccessToken"))
 
-	msg := api.Modify(pc, addCmdVal)
+	switch {
+	case cmd.Flag("add").Changed:
+		msg = api.Modify(pc, "add", itemID, args)
+	case cmd.Flag("del").Changed:
+		msg = api.Modify(pc, "del", itemID, args)
+	}
+
 	fmt.Println(msg)
 }

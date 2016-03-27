@@ -85,12 +85,24 @@ type Item struct {
 type ModifyRequest struct {
 	ConsumerKey string `json:"consumer_key"`
 	AccessToken string `json:"access_token"`
-	Action      string
-	ItemID      int
+	Action      Action
+}
+
+// Action - Individual change against pocket API, i.e. Add, Delete, Archive etc.
+type Action struct {
+	Action string `json:"action"`
+	ItemID int    `json:"item_id,string"`
 }
 
 // ModifyResponse - Result of modifications against pocket.
 type ModifyResponse struct {
-	Status  int
-	Actions map[string]string
+	Status        int
+	ActionResults []bool `json:"action_results"`
+}
+
+// ModifyResult represents the modify API's result.
+type ModifyResult struct {
+	// The results for each of the requested actions.
+	ActionResults []bool
+	Status        int
 }
