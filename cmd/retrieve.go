@@ -24,7 +24,7 @@ var retrieveCmd = &cobra.Command{
 func init() {
 
 	retrieveCmd.Run = retrieve
-	retrieveCmd.Flags().StringVarP(&searchVal, "search", "s", "", "Only return items whose title or url contain the search string")
+	retrieveCmd.Flags().StringVarP(&searchVal, "search", "s", "", "Only return items whose title or url contain the search string or use -s all to retrieve everything")
 	retrieveCmd.Flags().StringVarP(&domainVal, "domain", "d", "", "Only return items from a particular domain")
 	retrieveCmd.Flags().StringVarP(&tagVal, "tag", "t", "", "only return items tagged with tag name")
 	retrieveCmd.Flags().IntVarP(&countVal, "count", "c", 10, "total number of items to return")

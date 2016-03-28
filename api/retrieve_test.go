@@ -71,7 +71,7 @@ func TestRetrieveNoCriteria(t *testing.T) {
 	tagVal = ""
 	countVal = 1
 
-	expectedmsg := "Please specify a search, domain or tag parameter."
+	expectedmsg := "Please specify a search, domain or tag parameter or use the --help parameter."
 	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
 
 	if actualmsg != expectedmsg {
