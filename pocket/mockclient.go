@@ -105,6 +105,17 @@ func (p *MockClient) Retrieve(req RetrieveRequest, resp *RetrieveResponse) error
 // Modify -  Modify items in Pocket
 func (p *MockClient) Modify(req ModifyRequest, resp *ModifyResponse) error {
 
+	actions := req.Actions
+	itemVal := actions[0].ItemID
+
+	if itemVal == 12345 {
+		resp.Status = 1
+	}
+
+	if itemVal == 45678 {
+		resp.Status = 0
+	}
+
 	var err error
 	return err
 }

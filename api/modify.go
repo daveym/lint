@@ -38,7 +38,7 @@ func applyAction(pc pocket.API, action string, itemVal int, args []string) strin
 	modact.ItemID = itemVal
 	modreq.Actions = append(modreq.Actions, modact)
 
-	// Bulk update, with item ids in Args
+	// Bulk update, with itemIds in Args parameter
 	if len(args) > 0 {
 		for i := 0; i < len(args); i++ {
 			modact := &pocket.Action{}
@@ -49,7 +49,6 @@ func applyAction(pc pocket.API, action string, itemVal int, args []string) strin
 	}
 
 	modresp := &pocket.ModifyResponse{}
-
 	err := pc.Modify(modreq, modresp)
 
 	if err != nil {
@@ -57,5 +56,10 @@ func applyAction(pc pocket.API, action string, itemVal int, args []string) strin
 		return msg
 	}
 
-	return "Update applied successfully"
+	if modresp.Status == 0 {
+		msg = "Error executing " + action + " against the pocket API."
+		return msg
+	}
+
+	return "Update applied successfully."
 }
