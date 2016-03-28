@@ -50,7 +50,7 @@ The app is constructed with the following components:
 3. Pocket Package - Wrapper aroound the [Pocket API](https://getpocket.com/developer/docs/overview)
 
 ## Getting Involved
-If you wat to be involved in this, drop me a note on twitter, at @djmcglade
+If you want to be involved in this, drop me a note on twitter, at @djmcglade
 
 
 ## License
