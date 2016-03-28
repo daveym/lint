@@ -28,9 +28,11 @@ func init() {
 	modifyCmd.Run = modify
 
 	// itemID is the first parameter to each of the commands.
-	modifyCmd.Flags().StringVarP(&itemArg, "arc", "a", "", "Archive an item in pocket using ./lint modify -a itemID")
-	modifyCmd.Flags().StringVarP(&itemArg, "del", "d", "", "Delete an  item from pocket using ./lint modify -d itemID")
-
+	modifyCmd.Flags().StringVarP(&itemArg, "arc", "a", "", "Archive an item in pocket using ./lint modify -a itemID [itemID2 itemID3 itemID3 etc.]")
+	modifyCmd.Flags().StringVarP(&itemArg, "del", "d", "", "Delete an  item from pocket using ./lint modify -d itemID [itemID2 itemID3 itemID3 etc.]")
+	modifyCmd.Flags().StringVarP(&itemArg, "fav", "f", "", "Favourite an item in pocket using ./lint modify -f itemID [itemID2 itemID3 itemID3 etc.]")
+	modifyCmd.Flags().StringVarP(&itemArg, "unfav", "u", "", "(Un)Favourite an item in pocket using ./lint modify -u itemID [itemID2 itemID3 itemID3 etc.]")
+	modifyCmd.Flags().StringVarP(&itemArg, "readd", "r", "", "Readd an item that was archived pocket using ./lint modify -r itemID [itemID2 itemID3 itemID3 etc.]")
 	RootCmd.AddCommand(modifyCmd)
 }
 
@@ -54,6 +56,12 @@ func modify(cmd *cobra.Command, args []string) {
 		msg = api.Modify(pc, "archive", itemVal, args)
 	case cmd.Flag("del").Changed:
 		msg = api.Modify(pc, "delete", itemVal, args)
+	case cmd.Flag("fav").Changed:
+		msg = api.Modify(pc, "favourite", itemVal, args)
+	case cmd.Flag("unfav").Changed:
+		msg = api.Modify(pc, "unfavourite", itemVal, args)
+	case cmd.Flag("readd").Changed:
+		msg = api.Modify(pc, "readd", itemVal, args)
 	}
 
 	fmt.Println(msg)

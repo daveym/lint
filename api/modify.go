@@ -1,6 +1,10 @@
 package api
 
-import "github.com/daveym/lint/pocket"
+import (
+	"strconv"
+
+	"github.com/daveym/lint/pocket"
+)
 
 // Modify against Pocket API. Interface used to allow mock to be passed in.
 func Modify(pc pocket.API, action string, itemVal int, args []string) string {
@@ -13,8 +17,10 @@ func Modify(pc pocket.API, action string, itemVal int, args []string) string {
 	}
 
 	switch action {
-	case "archive":
+	case "archive", "delete", "favourite", "unfavorite", "readd":
 		msg = applyAction(pc, action, itemVal, args)
+	case "add":
+		msg = "Not yet implemented."
 	}
 
 	return msg
@@ -31,6 +37,16 @@ func applyAction(pc pocket.API, action string, itemVal int, args []string) strin
 	modact.Action = action
 	modact.ItemID = itemVal
 	modreq.Actions = append(modreq.Actions, modact)
+
+	// Bulk update, with item ids in Args
+	if len(args) > 0 {
+		for i := 0; i < len(args); i++ {
+			modact := &pocket.Action{}
+			modact.Action = action
+			modact.ItemID, _ = strconv.Atoi(args[i])
+			modreq.Actions = append(modreq.Actions, modact)
+		}
+	}
 
 	modresp := &pocket.ModifyResponse{}
 
