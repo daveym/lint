@@ -89,20 +89,17 @@ type ModifyRequest struct {
 }
 
 // Action - Individual change against pocket API, i.e. Add, Delete, Archive etc.
+// Note, most only need Action and ItemID. 'Add' requires, Tag, Title and URL
 type Action struct {
 	Action string `json:"action"`
-	ItemID int    `json:"item_id,string"`
+	ItemID string `json:"item_id,string"`
+	Tags   string
+	Title  string
+	URL    string
 }
 
 // ModifyResponse - Result of modifications against pocket.
 type ModifyResponse struct {
 	Status        int
 	ActionResults []bool `json:"action_results"`
-}
-
-// ModifyResult represents the modify API's result.
-type ModifyResult struct {
-	// The results for each of the requested actions.
-	ActionResults []bool
-	Status        int
 }

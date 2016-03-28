@@ -94,9 +94,19 @@ func (p *Client) Retrieve(itemreq RetrieveRequest, resp *RetrieveResponse) error
 // Modify -  Modify items in Pocket
 func (p *Client) Modify(req ModifyRequest, resp *ModifyResponse) error {
 
+	fmt.Println(req)
+
 	jsonStr, err := json.Marshal(req)
 
-	err = postJSON("GET", RetrieveURL, jsonStr, resp)
+	fmt.Println(string(jsonStr))
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	err = postJSON("POST", ModifyURL, jsonStr, resp)
+
+	fmt.Println(err)
 
 	return err
 }
