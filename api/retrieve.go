@@ -22,7 +22,7 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 	}
 
 	if len(searchVal) == 0 && len(domainVal) == 0 && len(tagVal) == 0 {
-		msg = "Please specify a search, domain or tag parameter."
+		msg = "Please specify a search, domain or tag parameter or use the --help parameter."
 		return msg
 	}
 
