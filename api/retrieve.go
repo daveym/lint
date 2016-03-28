@@ -29,10 +29,15 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 	itemreq := pocket.RetrieveRequest{}
 	itemreq.ConsumerKey = pc.GetConsumerKey()
 	itemreq.AccessToken = pc.GetAccessToken()
-	itemreq.Search = searchVal
+
+	if searchVal != "all" {
+		itemreq.Search = searchVal
+	}
+
 	itemreq.Domain = domainVal
 	itemreq.Tag = tagVal
 	itemreq.Count = countVal
+	itemreq.Sort = pocket.SortNewest
 
 	itemresp := &pocket.RetrieveResponse{}
 
@@ -51,7 +56,7 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 	}
 
 	for _, item := range items {
-		msg = msg + fmt.Sprintf("%v %v %v\n", item.ItemID, item.GivenTitle, item.GivenURL)
+		msg = msg + fmt.Sprintf("%v,%v,%v\n", item.ItemID, item.GivenTitle, item.GivenURL)
 	}
 
 	return msg

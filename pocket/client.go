@@ -94,19 +94,13 @@ func (p *Client) Retrieve(itemreq RetrieveRequest, resp *RetrieveResponse) error
 // Modify -  Modify items in Pocket
 func (p *Client) Modify(req ModifyRequest, resp *ModifyResponse) error {
 
-	fmt.Println(req)
-
 	jsonStr, err := json.Marshal(req)
 
-	fmt.Println(string(jsonStr))
-
 	if err != nil {
-		fmt.Println(err.Error())
+		return err
 	}
 
 	err = postJSON("POST", ModifyURL, jsonStr, resp)
-
-	fmt.Println(err)
 
 	return err
 }
@@ -128,10 +122,6 @@ func postJSON(action string, url string, data []byte, resp interface{}) (err err
 	}
 
 	err = json.NewDecoder(jsonResp.Body).Decode(resp)
-
-	if err != nil {
-		return err
-	}
 
 	return err
 }

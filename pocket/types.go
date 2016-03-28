@@ -83,23 +83,19 @@ type Item struct {
 
 // ModifyRequest - Send actions to pocket, i.e. add, archive, readd, favourite, unfavourite, delete
 type ModifyRequest struct {
-	ConsumerKey string `json:"consumer_key"`
-	AccessToken string `json:"access_token"`
-	Action      Action
-}
-
-// Action - Individual change against pocket API, i.e. Add, Delete, Archive etc.
-// Note, most only need Action and ItemID. 'Add' requires, Tag, Title and URL
-type Action struct {
-	Action string `json:"action"`
-	ItemID string `json:"item_id,string"`
-	Tags   string
-	Title  string
-	URL    string
+	ConsumerKey string    `json:"consumer_key"`
+	AccessToken string    `json:"access_token"`
+	Actions     []*Action `json:"actions"`
 }
 
 // ModifyResponse - Result of modifications against pocket.
 type ModifyResponse struct {
 	Status        int
 	ActionResults []bool `json:"action_results"`
+}
+
+// Action represents one action in a bulk modify requests.
+type Action struct {
+	Action string `json:"action"`
+	ItemID int    `json:"item_id,string"`
 }

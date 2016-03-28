@@ -123,7 +123,7 @@ func TestRetrieveWithSearchCriteria(t *testing.T) {
 	tagVal = ""
 	countVal = 1
 
-	expectedmsg := fmt.Sprintf("%v %v %v\n", 11111, "Docker", "http://docker.com")
+	expectedmsg := fmt.Sprintf("%v,%v,%v\n", 11111, "Docker", "http://docker.com")
 	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
 
 	if actualmsg != expectedmsg {
