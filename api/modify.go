@@ -20,7 +20,7 @@ func Modify(pc pocket.API, action string, itemVal int, args []string) string {
 	case "archive", "delete", "favourite", "unfavorite", "readd":
 		msg = applyAction(pc, action, itemVal, args)
 	case "add":
-		msg = "Not yet implemented."
+		msg = "Add not yet implemented."
 	}
 
 	return msg
