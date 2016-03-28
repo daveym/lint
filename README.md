@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-Lint is a terminal based application that pulls back your Pocket entries and allows you to add, update, remove or retag these entries (amongst other actions). Lint is currently in development and has not yet reached a releasable milestone, but feel free to have a look. At the moment, I'm using this as a vehicle for learning Go as well, so any advice or guidance is greatly appreciated as well.
+Lint is a terminal based application that pulls back your Pocket entries and allows you to archive, favourite, unfavourite readd (from archived state) or delete these entries. Lint is currently in development and has not yet reached a releasable milestone, but feel free to have a look. At the moment, I'm using this as a vehicle for learning Go as well, so any advice or guidance is greatly appreciated as well.
 
 ## Intro
 
@@ -26,6 +26,13 @@ vim lint.yaml
 consumerKey: your-consumer-key
 
 4) re-run ./lint auth - you'll then be presented with an oAuth page for authentication.
+
+5) At this point you ca retrieve articles. They'll come back in the form:
+ID, Title, URL 
+
+If you want, you can pipe these to a file using ./lint retrieve -s all >> myfile. From there, see what articles you want to keep or archive or favourite and use their ID's as inputs to lint using:
+
+./lint modify -a item1 item2 item3 etc.
 ```
 
 ## Motivation
@@ -37,9 +44,14 @@ I'm also attempting to learn Go, so I figured a good way to learn would be to cr
 ## API Reference
 
 The app is constructed with the following components:
+
 1. [Cobra](https://github.com/spf13/cobra) - Command line processing
 2. [Viper](https://github.com/spf13/viper) - Configuration file access
 3. Pocket Package - Wrapper aroound the [Pocket API](https://getpocket.com/developer/docs/overview)
+
+## Getting Involved
+If you wat to be involved in this, drop me a note on twitter, at @djmcglade
+
 
 ## License
 
