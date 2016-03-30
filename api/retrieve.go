@@ -12,17 +12,17 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 	msg := ""
 
 	if len(pc.GetConsumerKey()) == 0 {
-		msg = "Consumer Key is not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
+		msg = pocket.CONSUMERKEYNOTVALIDEn
 		return msg
 	}
 
 	if countVal == 0 {
-		msg = "Please specify a count parameter greater than 0."
+		msg = pocket.COUNTGREATERTHANZEROen
 		return msg
 	}
 
 	if len(searchVal) == 0 && len(domainVal) == 0 && len(tagVal) == 0 {
-		msg = "Please specify a search, domain or tag parameter or use the --help parameter."
+		msg = pocket.SPECIFYSEARCHen
 		return msg
 	}
 
@@ -44,14 +44,14 @@ func Retrieve(pc pocket.API, searchVal string, domainVal string, tagVal string, 
 	err := pc.Retrieve(itemreq, itemresp)
 
 	if err != nil {
-		msg = "Error retrieving from Pocket: " + err.Error()
+		msg = pocket.ERRORRETRIEVINGen + err.Error()
 		return msg
 	}
 
 	items := itemresp.List
 
 	if len(items) == 0 {
-		msg = "No matching values found in your pocket store."
+		msg = pocket.NOMATCHINGVALUESen
 		return msg
 	}
 

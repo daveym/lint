@@ -12,7 +12,7 @@ func Modify(pc pocket.API, action string, itemVal int, args []string) string {
 	msg := ""
 
 	if len(pc.GetConsumerKey()) == 0 {
-		msg = "Consumer Key is not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
+		msg = pocket.CONSUMERKEYNOTVALIDEn
 		return msg
 	}
 
@@ -52,14 +52,14 @@ func applyAction(pc pocket.API, action string, itemVal int, args []string) strin
 	err := pc.Modify(modreq, modresp)
 
 	if err != nil {
-		msg = "Error communicating with Pocket: " + err.Error()
+		msg = pocket.ERRORRETRIEVINGen + err.Error()
 		return msg
 	}
 
 	if modresp.Status == 0 {
-		msg = "Error executing " + action + " against the pocket API."
+		msg = pocket.ERROREXECUTINGen + action
 		return msg
 	}
 
-	return "Update applied successfully."
+	return pocket.UPDATEAPPLIEDen
 }

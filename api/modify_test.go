@@ -19,7 +19,7 @@ func TestModifyNoConsumerKey(t *testing.T) {
 
 	action = ""
 
-	expectedmsg := "Consumer Key is not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
+	expectedmsg := pocket.CONSUMERKEYNOTVALIDEn
 	actualmsg := Modify(mc, action, itemVal, args)
 
 	if actualmsg != expectedmsg {
@@ -43,7 +43,7 @@ func TestModifySuccessfulUpdate(t *testing.T) {
 	action = "archive"
 	itemVal = 12345
 
-	expectedmsg := "Update applied successfully."
+	expectedmsg := pocket.UPDATEAPPLIEDen
 	actualmsg := Modify(mc, action, itemVal, args)
 
 	if actualmsg != expectedmsg {
@@ -67,7 +67,7 @@ func TestModifyFailedUpdate(t *testing.T) {
 	action = "archive"
 	itemVal = 45678
 
-	expectedmsg := "Error executing " + action + " against the pocket API."
+	expectedmsg := pocket.ERROREXECUTINGen + action
 	actualmsg := Modify(mc, action, itemVal, args)
 
 	if actualmsg != expectedmsg {
@@ -93,7 +93,7 @@ func TestModifySuccessfulUpdateMultipleArgs(t *testing.T) {
 	args = append(args, "45678")
 	args = append(args, "91011")
 
-	expectedmsg := "Update applied successfully."
+	expectedmsg := pocket.UPDATEAPPLIEDen
 	actualmsg := Modify(mc, action, itemVal, args)
 
 	if actualmsg != expectedmsg {

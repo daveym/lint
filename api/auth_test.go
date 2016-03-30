@@ -15,7 +15,7 @@ func TestAuthNoConsumerKey(t *testing.T) {
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("")
 
-	expectedmsg := "Consumer Key is not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
+	expectedmsg := pocket.CONSUMERKEYNOTFOUNDEn
 	actualmsg := Authenticate(mc)
 
 	if actualmsg != expectedmsg {
@@ -32,7 +32,7 @@ func TestAuthInvalidConsumerKey(t *testing.T) {
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("INVALIDKEY")
 
-	expectedmsg := "Please check your consumer key, it does not appear to be valid."
+	expectedmsg := pocket.CONSUMERKEYNOTVALIDEn
 	actualmsg := Authenticate(mc)
 
 	if actualmsg != expectedmsg {
@@ -49,7 +49,7 @@ func TestBrowserAuthFail(t *testing.T) {
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("INVALIDBROWSER")
 
-	expectedmsg := "Error whilst approving Lint access to Pocket data. Please check your connectivity/default browser."
+	expectedmsg := pocket.ERRORAPPROVINGLINTEn
 	actualmsg := Authenticate(mc)
 
 	if actualmsg != expectedmsg {
@@ -67,7 +67,7 @@ func TestAuthGetAccessTokenFail(t *testing.T) {
 	mc.SetConsumerKey("FAIL")
 	mc.SetAccessToken("FAIL")
 
-	expectedmsg := "Error authorising your consumer key and request token. Have you granted permission to Lint?"
+	expectedmsg := pocket.ERRORAUTHen
 	actualmsg := Authenticate(mc)
 
 	if actualmsg != expectedmsg {
@@ -85,7 +85,7 @@ func TestAuthGetAccessTokenSuccess(t *testing.T) {
 	mc.SetConsumerKey("45678")
 	mc.SetAccessToken("SUCCESS")
 
-	expectedmsg := "Authentication Successful - Pocket Access Token is persisted to lint.yaml"
+	expectedmsg := pocket.AUTHSUCCESSen
 	actualmsg := Authenticate(mc)
 
 	if actualmsg != expectedmsg {

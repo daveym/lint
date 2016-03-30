@@ -19,7 +19,7 @@ func TestRetrieveNoConsumerKey(t *testing.T) {
 	mc := &pocket.MockClient{}
 	mc.SetConsumerKey("")
 
-	expectedmsg := "Consumer Key is not present in lint.yaml. Please add, using the format 'ConsumerKey: value', without quotes."
+	expectedmsg := pocket.CONSUMERKEYNOTVALIDEn
 	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
 
 	if actualmsg != expectedmsg {
@@ -45,7 +45,7 @@ func TestRetrieveNoCountCriteria(t *testing.T) {
 	tagVal = ""
 	countVal = 0
 
-	expectedmsg := "Please specify a count parameter greater than 0."
+	expectedmsg := pocket.COUNTGREATERTHANZEROen
 	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
 
 	if actualmsg != expectedmsg {
@@ -71,7 +71,7 @@ func TestRetrieveNoCriteria(t *testing.T) {
 	tagVal = ""
 	countVal = 1
 
-	expectedmsg := "Please specify a search, domain or tag parameter or use the --help parameter."
+	expectedmsg := pocket.SPECIFYSEARCHen
 	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
 
 	if actualmsg != expectedmsg {
@@ -97,7 +97,7 @@ func TestRetrieveWithNoItemsFound(t *testing.T) {
 	tagVal = ""
 	countVal = 1
 
-	expectedmsg := "No matching values found in your pocket store."
+	expectedmsg := pocket.NOMATCHINGVALUESen
 	actualmsg := Retrieve(mc, searchVal, domainVal, tagVal, countVal)
 
 	if actualmsg != expectedmsg {
