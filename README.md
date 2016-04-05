@@ -6,7 +6,7 @@ Lint is a terminal based application that pulls back your Pocket entries and all
 
 ## Intro
 
-To use this app, you need to have a [Pocket account](https://getpocket.com) and have access to your 'Consumer Key'. A consumer key is created by Pocket for each application that wants to access Pocket data via the Pocket API. As I'm open sourcing this application, feel free to go and set up your own copy on Pocket to get a consumer key.   
+To use this app, you need to have a [Pocket account](https://getpocket.com) and have access to your 'Consumer Key'. A consumer key is created by Pocket for each application that wants to access Pocket data via the Pocket API. As I'm open sourcing this application, feel free to go and set up your own copy on Pocket to get a consumer key - you'll need one to run this app! 
 
 
 ## Installation
