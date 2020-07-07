@@ -1,6 +1,7 @@
 {
   "summary": {
-    "title": "Test Threat"
+    "title": "Test Threat",
+    "owner": "me"
   },
   "detail": {
     "contributors": [],
